@@ -156,9 +156,9 @@ namespace THERBgh
 
             Therb therb = new Therb(roomList, faceListWindow, windowList);
 
-            DA.SetData("Rooms", roomList);
-            DA.SetData("Faces", faceListWindow);
-            DA.SetData("Windows", windowList);
+            DA.SetDataList("Rooms", roomList);
+            DA.SetDataList("Faces", faceListWindow);
+            DA.SetDataList("Windows", windowList);
             DA.SetData("Therb", therb);
         }
 
