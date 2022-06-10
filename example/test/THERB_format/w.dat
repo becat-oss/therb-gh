@@ -1,0 +1,140 @@
+  1 1 0.70 0.90 0.70 0.90 0.000e-09 0.000e-10  2                                                                                 moisture transfer coefficient [kg/m2 s Pa] !í Çµî‘çÜ, nwc:óvëfî‘çÜ, as(i,j):ì˙éÀãzé˚ó¶, ep(i,j):í∑ä˙ï˙éÀó¶, mtn(i,j):ìßéºíÔçR, lwr:ëwêî
+         1         1         0         0         0         0         0         0         0         0         0         0         ncs:classification (1:opaque, 2:integrated cavity, 3:separated.cav., 4:v.cav., 5:g.cav., 6:glass, 7:low-e, 8:sheet, 9:others)
+        15        10         0         0         0         0         0         0         0         0         0         0         ndv:division ï™äÑêî
+     0.150     0.050     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         thk:thickness[m] å˙Ç≥
+     0.039     0.170     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         cdt:conductivity    [W/m K] îMì`ì±ó¶
+     890.0     550.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         sph:specific heat   [J/kg K] î‰îM
+    2206.0    1300.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         spw:specific weight [kg/m3] î‰èd
+ 1.200e-10 3.272e-14                                                                                                            mcd:moisture conductivity [kg/m s Pa] or [kg/m2 s Pa] êÖï™ì`ì±ó¶
+ 7.248e-04 2.077e-05                                                                                                             mcp:moisture capacity     [kg/m3(kJ/kg)] êÖï™óeó 
+
+  2 2 0.70 0.90 0.70 0.90 0.000e-09 0.000e-10  3                                                                                 moisture transfer coefficient [kg/m2 s Pa]
+         1         1         1         0         0         0         0         0         0         0         0         0         classification (1:opaque, 2:integrated cavity, 3:separated.cav., 4:v.cav., 5:g.cav., 6:glass, 7:low-e, 8:sheet, 9:others)
+         1        10         1         0         0         0         0         0         0         0         0         0         division
+     0.012     0.100     0.012     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         thickness       [m]
+     1.500     0.530     1.500     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         conductivity    [W/m K]
+     917.0     890.0     917.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific heat   [J/kg K]
+    2009.0    2206.0    2009.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific weight [kg/m3]
+ 4.570e-12 1.020e-12 4.570e-12                                                                                                   moisture conductivity [kg/m s Pa] or [kg/m2 s Pa]
+ 1.830e-01 1.881e-00 1.830e-01                                                                                                   moisture capacity     [kg/m3(kJ/kg)]
+
+  3 2 0.70 0.90 0.70 0.90 0.000e-09 0.000e-10  1                                                                                 moisture transfer coefficient [kg/m2 s Pa]
+         1         0         0         0         0         0         0         0         0         0         0         0         classification (1:opaque, 2:integrated cavity, 3:separated.cav., 4:v.cav., 5:g.cav., 6:glass, 7:low-e, 8:sheet, 9:others)
+        10         0         0         0         0         0         0         0         0         0         0         0         division
+     0.100     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         thickness       [m]
+     0.028     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         conductivity    [W/m K]
+    1470.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific heat   [J/kg K]
+      33.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific weight [kg/m3]
+ 1.000e-12                                                                                                                       moisture conductivity [kg/m s Pa] or [kg/m2 s Pa]
+ 6.000e-03                                                                                                                       moisture capacity     [kg/m3(kJ/kg)]
+
+  4 2 0.70 0.90 0.70 0.90 0.000e-09 0.000e-10  1                                                                                 moisture transfer coefficient [kg/m2 s Pa]
+         1         0         0         0         0         0         0         0         0         0         0         0         classification (1:opaque, 2:integrated cavity, 3:separated.cav., 4:v.cav., 5:g.cav., 6:glass, 7:low-e, 8:sheet, 9:others)
+        01         0         0         0         0         0         0         0         0         0         0         0         division
+     0.001     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         thickness       [m]
+     1.619     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         conductivity    [W/m K]
+     890.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific heat   [J/kg K]
+    2206.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific weight [kg/m3]
+ 1.020e-12                                                                                                                       moisture conductivity [kg/m s Pa] or [kg/m2 s Pa]
+ 1.881e-00                                                                                                                       moisture capacity     [kg/m3(kJ/kg)]
+
+  5 3 0.70 0.90 0.70 0.90 0.000e-09 0.000e-10  1                                                                                 moisture transfer coefficient [kg/m2 s Pa]
+         1         0         0         0         0         0         0         0         0         0         0         0         classification (1:opaque, 2:integrated cavity, 3:separated.cav., 4:v.cav., 5:g.cav., 6:glass, 7:low-e, 8:sheet, 9:others)
+        20         0         0         0         0         0         0         0         0         0         0         0         division
+     0.200     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         thickness       [m]
+     0.103     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         conductivity    [W/m K]
+    1880.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific heat   [J/kg K]
+     556.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific weight [kg/m3]
+ 5.670e-13                                                                                                                       moisture conductivity [kg/m s Pa]
+ 2.200e-01                                                                                                                       moisture capacity     [kg/m3(J/kg)]
+
+  6 5 0.70 0.90 0.70 0.90 0.000e-09 0.000e-10  2                                                                                 moisture transfer coefficient [kg/m2 s Pa]
+         1         1         0         0         0         0         0         0         0         0         0         0         classification (1:opaque, 2:integrated cavity, 3:separated.cav., 4:v.cav., 5:g.cav., 6:glass, 7:low-e, 8:sheet, 9:others)
+         2         2         0         0         0         0         0         0         0         0         0         0         division
+     0.100     0.500     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         thickness       [m]
+     0.103     0.024     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         conductivity    [W/m K]
+    1880.0    1005.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific heat   [J/kg K]
+     556.0       1.2       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific weight [kg/m3]
+ 5.670e-13 1.200e-10                                                                                                             moisture conductivity [kg/m s Pa] or [kg/m2 s Pa]
+ 2.200e-01 1.905e-03                                                                                                             moisture capacity     [kg/m3(J/kg)]
+
+  7 5 0.10 0.90 0.10 0.90 0.000e-00 0.000e-00  1                                                                                 moisture transfer coefficient [kg/m2 s Pa]
+         1         0         0         0         0         0         0         0         0         0         0         0         classification (1:opaque, 2:integrated cavity, 3:separated.cav., 4:v.cav., 5:g.cav., 6:glass, 7:low-e, 8:sheet, 9:others)
+        12         0         0         0         0         0         0         0         0         0         0         0         division
+     0.600     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         thickness       [m]
+     1.619     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         conductivity    [W/m K]
+     890.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific heat   [J/kg K]
+    2006.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific weight [kg/m3]
+ 1.020e-12                                                                                                                       moisture conductivity [kg/m s Pa]
+ 1.881e-00                                                                                                                       moisture capacity     [kg/m3(J/kg)]
+
+  8 4 0.70 0.90 0.70 0.90 0.000e-09 1.000e-00  1                                                                                 moisture transfer coefficient [kg/m2 s Pa]
+         1         0         0         0         0         0         0         0         0         0         0         0         classification (1:opaque, 2:integrated cavity, 3:separated.cav., 4:v.cav., 5:g.cav., 6:glass, 7:low-e, 8:sheet, 9:others)
+        20         0         0         0         0         0         0         0         0         0         0         0         division
+     0.500     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         thickness       [m]
+     0.103     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         conductivity    [W/m K]
+    1880.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific heat   [J/kg K]
+     556.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific weight [kg/m3]
+ 5.670e-13                                                                                                                       moisture conductivity [kg/m s Pa] or [kg/m2 s Pa]
+ 2.200e-01                                                                                                                       moisture capacity     [kg/m3(kJ/kg)]
+ 
+  9 5 0.70 0.90 0.70 0.90 0.000e-09 1.000e-00  2                                                                                moisture transfer coefficient [kg/m2 s Pa]
+         1         1         0         0         0         0         0         0         0         0         0         0         classification (1:opaque, 2:integrated cavity, 3:separated.cav., 4:v.cav., 5:g.cav., 6:glass, 7:low-e, 8:sheet, 9:others)
+        10         2         0         0         0         0         0         0         0         0         0         0         division
+     0.500     0.100     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         thickness       [m]
+     1.619     0.103     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         conductivity    [W/m K]
+     890.0    1880.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific heat   [J/kg K]
+    2206.0     556.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific weight [kg/m3]
+ 1.020e-12 5.670e-13                                                                                                             moisture conductivity [kg/m s Pa] or [kg/m2 s Pa]
+ 1.881e-00 2.200e-13                                                                                                             moisture capacity     [kg/m3(kJ/kg)]
+ 
+ 10 6 0.00 0.84 0.00 0.84 0.000e-00 0.000e-00  1                                                                                 moisture transfer coefficient [kg/m2 s Pa]
+         6         0         0         0         0         0         0         0         0         0         0         0         classification (1:opaque, 2:integrated cavity, 3:separated.cav., 4:v.cav., 5:g.cav., 6:glass, 7:low-e, 8:sheet, 9:others)
+         1         0         0         0         0         0         0         0         0         0         0         0         division
+     0.003     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         thickness       [m]
+     0.780     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         conductivity    [W/m K]
+     770.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific heat   [J/kg K]
+    2540.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific weight [kg/m3]
+         0                                                                                                                       moisture conductivity [kg/m s Pa] or [kg/m2 s Pa]
+         0
+                                                                                                                       moisture capacity     [kg/m3(kJ/kg)]
+ 11 7 0.70 0.90 0.70 0.90 0.000e-09 1.000e-00  1                                                                                 moisture transfer coefficient [kg/m2 s Pa]
+         1         0         0         0         0         0         0         0         0         0         0         0         classification (1:opaque, 2:integrated cavity, 3:separated.cav., 4:v.cav., 5:g.cav., 6:glass, 7:low-e, 8:sheet, 9:others)
+         1         0         0         0         0         0         0         0         0         0         0         0         division
+     0.400     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         thickness       [m]
+     0.103     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         conductivity    [W/m K]
+    1880.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific heat   [J/kg K]
+     556.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific weight [kg/m3]
+ 5.670e-13                                                                                                                       moisture conductivity [kg/m s Pa] or [kg/m2 s Pa]
+ 2.200e-01  
+                                                                                                                     moisture capacity     [kg/m3(kJ/kg)]
+ 13 7 0.70 0.90 0.70 0.90 0.000e-09 1.000e-00  1                                                                                 moisture transfer coefficient [kg/m2 s Pa]
+         1         0         0         0         0         0         0         0         0         0         0         0         classification (1:opaque, 2:integrated cavity, 3:separated.cav., 4:v.cav., 5:g.cav., 6:glass, 7:low-e, 8:sheet, 9:others)
+         1         0         0         0         0         0         0         0         0         0         0         0         division
+     0.300     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         thickness       [m]
+     0.024     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         conductivity    [W/m K]
+    1005.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific heat   [J/kg K]
+       1.2       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         specific weight [kg/m3]
+ 1.200e-10                                                                                                                       moisture conductivity [kg/m s Pa] or [kg/m2 s Pa]
+ 1.905e-03 
+                                                                                                                     moisture capacity     [kg/m3(kJ/kg)]
+ 12 6 0.00 0.84 0.00 0.84 0.000e-00 0.000e-00  3                                                                                 	moisture transfer coefficient [kg/m2 s Pa]
+         6         3         6         0         0         0         0         0         0         0         0         0         	classification (1:opaque, 2:integrated cavity, 3:separated.cav., 4:v.cav., 5:g.cav., 6:glass, 7:low-e, 8:sheet, 9:others
+         1         2         1         0         0         0         0         0         0         0         0         0         	division
+     0.003     0.012     0.003     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         	thickness       [m]
+     0.780     0.022     0.780     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         	conductivity    [W/m K]
+     770.0    1000.0     770.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         	specific heat   [J/kg K]
+    2540.0       1.2    2540.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0         	specific weight [kg/m3]
+         0         0         0                                                                                                   	moisture conductivity [kg/m s Pa]
+         0         0         0                                                                                                   	moisture capacity     [kg/m3(J/kg)]
+* properties of window component (in the case, window component is plural)	
+     0.000     0.000     0.000                                                                                                   	solar absorptance
+     0.000     0.000     0.000                                                                                                   	solar transmittance
+     0.840     0.000     0.840                                                                                                   	interior emissivity of glazing & low-e & shade, etc.
+     0.840     0.000     0.840                                                                                                   	exterior emissivity of glazing & low-e & shade, etc.
+     0.000     2.000     0.000                                                                                                   	interior coefficient of cavity convection [W/m2 K]
+     0.000     2.000     0.000                                                                                                   	exterior coefficient of cavity convection [W/m2 K]
+     0.000     0.000     0.000                                                                                                   	velocity of air flow through cavity [m/s]
+         0         0         0                                                                                                   	inflow from outdoor or room (= 0 or 1)
+
+ 

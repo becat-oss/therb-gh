@@ -1,0 +1,38 @@
+   2   8   1   0   0   2   1   1   0   0
+      Room 1    0.000   0.000   0.000  10.000  10.000   1.000   100.000      18.800   16.7000 
+      Room 2    0.000   0.000   1.000  10.000  10.000   4.000   300.000      18.800   16.7000 
+    Ex-wall 1   0.000   0.000   0.000  10.000   0.000   1.000    90.000     10.0000    0
+  structure No.     1  overhang No.     0      wing1 No.    0   wing2 No.    0 
+      window No.    0   0   0   0   0   0   0   0   0   0   0
+    Ex-wall 2  10.000   0.000   0.000  10.000  10.000   1.000    90.000     10.0000    0
+  structure No.     1  overhang No.     0      wing1 No.    0   wing2 No.    0 
+      window No.    0   0   0   0   0   0   0   0   0   0   0
+    Ex-wall 3   0.000  10.000   0.000  10.000  10.000   1.000    90.000     10.0000    0
+  structure No.     1  overhang No.     0      wing1 No.    0   wing2 No.    0 
+      window No.    0   0   0   0   0   0   0   0   0   0   0
+    Ex-wall 4   0.000   0.000   0.000   0.000  10.000   1.000    90.000     10.0000    0
+  structure No.     1  overhang No.     0      wing1 No.    0   wing2 No.    0 
+      window No.    0   0   0   0   0   0   0   0   0   0   0
+    Ex-wall 5   0.000   0.000   1.000  10.000   0.000   4.000    90.000     30.0000    0
+  structure No.     1  overhang No.     0      wing1 No.    0   wing2 No.    0 
+      window No.    0   0   0   0   0   0   0   0   0   0   0
+    Ex-wall 6  10.000   0.000   1.000  10.000  10.000   4.000    90.000     30.0000    0
+  structure No.     1  overhang No.     0      wing1 No.    0   wing2 No.    0 
+      window No.    0   0   0   0   0   0   0   0   0   0   0
+    Ex-wall 7   0.000  10.000   1.000  10.000  10.000   4.000    90.000     30.0000    0
+  structure No.     1  overhang No.     0      wing1 No.    0   wing2 No.    0 
+      window No.    0   0   0   0   0   0   0   0   0   0   0
+    Ex-wall 8   0.000   0.000   1.000   0.000  10.000   4.000    90.000     30.0000    0
+  structure No.     1  overhang No.     0      wing1 No.    0   wing2 No.    0 
+      window No.    1   0   0   0   0   0   0   0   0   0   0
+      Window1       0   1.816       2       0       5   3.544    90.000      4.9200
+  structure No.     6  overhang No.     0      wing1 No.    0   wing2 No.    0
+   flr&cling1   0.000   0.000   1.000  10.000  10.000   1.000     0.000    100.0000    0
+  structure No.     3
+   flr&cling2   0.000   0.000   1.000  10.000  10.000   1.000     0.000    100.0000    0
+  structure No.     3
+        Roof1   0.000   0.000          10.000  10.000   0.000     0.000    100.0000    0
+ structure No.     4 
+      Ground1   0.000   0.000   0.000  10.000  10.000   0.000     0.000    100.0000    0
+  structure No.     5
+
