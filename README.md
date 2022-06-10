@@ -4,7 +4,8 @@
 1. モデリングする  
 2. それぞれのzoneをsplitしてjoinする  
 3. assignClassコンポーネントにzoneジオメトリを格納する  
-4. 
+4. roomの数を入力する  
+5. 
 
 ## 概要  
 THERB-GHは、THERB(HASP)用のシミュレーション入力ファイルをRhinocerosに入力したジオメトリを元に生成するGrasshopperライブラリです。  
