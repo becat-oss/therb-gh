@@ -80,7 +80,7 @@ export default [
   },
   {
     path: '/therb-gh/docs',
-    component: ComponentCreator('/therb-gh/docs','4f1'),
+    component: ComponentCreator('/therb-gh/docs','fb4'),
     routes: [
       {
         path: '/therb-gh/docs/Component/Modelling',
@@ -109,6 +109,12 @@ export default [
       {
         path: '/therb-gh/docs/Usage/HowToInstall',
         component: ComponentCreator('/therb-gh/docs/Usage/HowToInstall','459'),
+        exact: true,
+        'sidebar': "tutorialSidebar"
+      },
+      {
+        path: '/therb-gh/docs/Usage/RunSimulation',
+        component: ComponentCreator('/therb-gh/docs/Usage/RunSimulation','2b3'),
         exact: true,
         'sidebar': "tutorialSidebar"
       },

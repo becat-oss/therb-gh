@@ -36,6 +36,11 @@
               "sidebar": "tutorialSidebar"
             },
             {
+              "id": "Usage/RunSimulation",
+              "path": "/therb-gh/docs/Usage/RunSimulation",
+              "sidebar": "tutorialSidebar"
+            },
+            {
               "id": "Usage/UploadToServer",
               "path": "/therb-gh/docs/Usage/UploadToServer",
               "sidebar": "tutorialSidebar"

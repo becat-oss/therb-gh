@@ -62,6 +62,12 @@
           },
           {
             "type": "link",
+            "label": "Run simulation",
+            "href": "/therb-gh/docs/Usage/RunSimulation",
+            "docId": "Usage/RunSimulation"
+          },
+          {
+            "type": "link",
             "label": "Upload to server",
             "href": "/therb-gh/docs/Usage/UploadToServer",
             "docId": "Usage/UploadToServer"
@@ -99,6 +105,12 @@
       "id": "Usage/HowToInstall",
       "title": "How to install",
       "description": "インストール方法",
+      "sidebar": "tutorialSidebar"
+    },
+    "Usage/RunSimulation": {
+      "id": "Usage/RunSimulation",
+      "title": "Run simulation",
+      "description": "",
       "sidebar": "tutorialSidebar"
     },
     "Usage/UploadToServer": {

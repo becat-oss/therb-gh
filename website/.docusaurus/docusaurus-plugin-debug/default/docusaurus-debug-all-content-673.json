@@ -140,6 +140,32 @@
                 "permalink": "/therb-gh/docs/Usage/CreateTherbModel"
               },
               "next": {
+                "title": "Run simulation",
+                "permalink": "/therb-gh/docs/Usage/RunSimulation"
+              }
+            },
+            {
+              "unversionedId": "Usage/RunSimulation",
+              "id": "Usage/RunSimulation",
+              "title": "Run simulation",
+              "description": "",
+              "source": "@site/docs/Usage/RunSimulation.md",
+              "sourceDirName": "Usage",
+              "slug": "/Usage/RunSimulation",
+              "permalink": "/therb-gh/docs/Usage/RunSimulation",
+              "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/Usage/RunSimulation.md",
+              "tags": [],
+              "version": "current",
+              "frontMatter": {
+                "id": "RunSimulation",
+                "title": "Run simulation"
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "How to install",
+                "permalink": "/therb-gh/docs/Usage/HowToInstall"
+              },
+              "next": {
                 "title": "Upload to server",
                 "permalink": "/therb-gh/docs/Usage/UploadToServer"
               }
@@ -162,8 +188,8 @@
               },
               "sidebar": "tutorialSidebar",
               "previous": {
-                "title": "How to install",
-                "permalink": "/therb-gh/docs/Usage/HowToInstall"
+                "title": "Run simulation",
+                "permalink": "/therb-gh/docs/Usage/RunSimulation"
               }
             }
           ],
@@ -210,6 +236,10 @@
                   {
                     "type": "doc",
                     "id": "Usage/HowToInstall"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "Usage/RunSimulation"
                   },
                   {
                     "type": "doc",
