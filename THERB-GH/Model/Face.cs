@@ -343,7 +343,7 @@ namespace Model
         }
         public void OverrideConstruction(Construction construction)
         {
-            this.structureId = construction.id;
+            this.structureId = Int32.Parse(construction.id);
         }
 
         public override string ToString()

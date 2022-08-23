@@ -59,6 +59,7 @@
     <Compile Include="Model\Face.cs" />
     <Compile Include="Model\Window.cs" />
     <Compile Include="Model\Overhang.cs" />
+    <Compile Include="ReadEnvelope.cs" />
     <Compile Include="ReadRoomProperties.cs" />
     <Compile Include="ReadFaceProperties.cs" />
     <Compile Include="RunSimulation.cs" />

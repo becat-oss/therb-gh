@@ -107,7 +107,7 @@ namespace THREB_GH_Test
 
             #endregion
 
-            var source = JsonConvert.DeserializeObject<Mock>(text);
+            var source = JsonConvert.DeserializeObject<ResConstruction>(text);
         }
 
     }

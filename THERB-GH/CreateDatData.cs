@@ -555,14 +555,45 @@ namespace THERBgh
             return windowIdStrs;
         }
     }
-    public class Mock
+    public class ResEnvelope
+    {
+        public List<Envelope> data;
+    }
+
+    public class Envelope
+    {
+        public string name;
+        public string id;
+        public Construction exteriorWall;
+        public Construction interiorWall;
+        public Construction floorCeiling;
+        public Construction groundFloor;
+        public Construction roof;
+        public Construction window;
+
+        public override string ToString()
+        {
+            string preview = base.ToString();
+            try
+            {
+                preview += Environment.NewLine;
+                //preview += " Id         :" + id + Environment.NewLine;
+                preview += " Name :" + name+ Environment.NewLine;
+            }
+            catch { }
+            return preview;
+        }
+
+    }
+
+    public class ResConstruction
     {
         public List<Construction> data;
     }
 
     public class Construction
     {
-        public int id;
+        public string id;
         [JsonProperty(PropertyName = "category")]
         public ElementType categories;
         public List<Material> materials;
@@ -575,7 +606,7 @@ namespace THERBgh
             {
                 preview += Environment.NewLine;
                 preview += " Id         :" + id + Environment.NewLine;
-                preview += " Categories :" + categories + Environment.NewLine;
+                preview += " Category :" + categories + Environment.NewLine;
                 preview += " Materials  :" + string.Join(", ", Material.GetNames(materials)) + Environment.NewLine;
                 preview += " Thickness  :" + string.Join(", ", thickness);
             }
@@ -598,7 +629,7 @@ namespace THERBgh
 
     public class Material
     {
-        public int id;
+        public string id;
         public string name;
         public double conductivity;
         public double density;

@@ -17,9 +17,9 @@ using Newtonsoft.Json;
 
 namespace THERBgh
 {
-    public class ReadConstruction : GH_Component
+    public class ReadEnvelope : GH_Component
     {
-        const string CONSTRUCTION_URL = "https://stingray-app-vgak2.ondigitalocean.app/constructions";
+        const string ENVELOPE_URL = "https://stingray-app-vgak2.ondigitalocean.app/envelopes";
 
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
@@ -28,9 +28,9 @@ namespace THERBgh
         /// Subcategory the panel. If you use non-existing tab or panel names, 
         /// new tabs/panels will automatically be created.
         /// </summary>
-        public ReadConstruction()
-          : base("ReadConstruction", "ReadConstruction",
-              "read construction data",
+        public ReadEnvelope()
+          : base("ReadEnvelope", "ReadEnvelope",
+              "read envelope data",
               "THERB-GH", "Modelling")
         {
         }
@@ -48,8 +48,7 @@ namespace THERBgh
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            //TODO: RegisterOutputParamsをdynamicにしたい
-            pManager.AddGenericParameter("Construction", "Construction", "construction list", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Envelopes", "Envelopes", "envelope list", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -66,13 +65,13 @@ namespace THERBgh
             //jsonデータを読み込む（データフォーマットはnotionを参照）
             var wc = new WebClient();
 
-            string text = wc.DownloadString(CONSTRUCTION_URL);
+            string text = wc.DownloadString(ENVELOPE_URL);
 
             //jsonデータに基づいてUpdateConstructionにつなげるためのoutputを生成=>形式は齋藤君と相談
 
-            List<Construction> constructions = JsonConvert.DeserializeObject<ResConstruction>(text).data;
+            List<Envelope> envelopes = JsonConvert.DeserializeObject<ResEnvelope>(text).data;
 
-            DA.SetDataList("Construction", constructions);
+            DA.SetDataList("Envelope", envelopes);
         }
 
         /// <summary>
@@ -96,7 +95,7 @@ namespace THERBgh
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("0454e523-af16-472e-a9df-b9a546e68c04"); }
+            get { return new Guid("71427f32-11d1-4f4f-9637-f132949b328a"); }
         }
     }
 }
