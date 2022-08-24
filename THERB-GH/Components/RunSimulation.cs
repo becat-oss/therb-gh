@@ -13,6 +13,7 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 //using Microsoft.WindowsAPICodePack.Dialogs;
 using Model;
+using System.Threading;
 
 // In order to load the result of this wizard, you will also need to
 // add the output bin/ folder of this project to the list of loaded
@@ -23,7 +24,6 @@ namespace THERBgh
 {
     public class RunSimulation : GH_Component
     {
-        const string THERB_FILE_PATH = @"C:\therb\therb.exe";
         const string THERB_FILE_NAME = "therb.exe";
         const string THERB_FOLDER_PATH = @"C:\therb";
         const string CREATE_FILE_B = "b.dat";
@@ -212,8 +212,19 @@ namespace THERBgh
             }
 
             //処理3. コマンドラインを立ち上げ、therb.exeファイルを呼び出す
-            //Process.Start(THERB_FILE_PATH);
-            Process.Start(Path.Combine(namePath, THERB_FILE_NAME));
+            var process = new Process();
+            process.StartInfo = new ProcessStartInfo()
+            {
+                FileName = Path.Combine(namePath, THERB_FILE_NAME),
+                WorkingDirectory = namePath
+            };
+            process.Start();
+            process.WaitForExit();
+#if DEBUG
+            Debug.WriteLine("END");
+            Debug.WriteLine("EXITCODE:" + process.ExitCode.ToString());
+            Debug.WriteLine("EXITTIME" + process.ExitTime.ToString());
+#endif
 
             //処理3. zipファイルを作成し、https://stingray-app-vgak2.ondigitalocean.app/therb/run にfrom-dataのキーdatasetに対応するファイルとして添付し、POSTする
 

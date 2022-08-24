@@ -45,13 +45,13 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Compose.cs" />
+    <Compile Include="Components\Compose.cs" />
     <Compile Include="CreateDatData.cs" />
-    <Compile Include="ExportT.cs" />
-    <Compile Include="ExportW.cs" />
-    <Compile Include="ExportB.cs" />
-    <Compile Include="ExportA.cs" />
-    <Compile Include="FilterConstruction.cs" />
+    <Compile Include="Components\Exporter\ExportT.cs" />
+    <Compile Include="Components\Exporter\ExportW.cs" />
+    <Compile Include="Components\Exporter\ExportB.cs" />
+    <Compile Include="Components\Exporter\ExportA.cs" />
+    <Compile Include="Components\Modification\FilterConstruction.cs" />
     <Compile Include="Model\BaseGeo.cs" />
     <Compile Include="Model\Therb.cs" />
     <Compile Include="Model\Room.cs" />
@@ -59,18 +59,25 @@
     <Compile Include="Model\Face.cs" />
     <Compile Include="Model\Window.cs" />
     <Compile Include="Model\Overhang.cs" />
+<<<<<<< HEAD
     <Compile Include="ReadEnvelope.cs" />
     <Compile Include="ReadRoomProperties.cs" />
     <Compile Include="ReadFaceProperties.cs" />
     <Compile Include="RunSimulation.cs" />
     <Compile Include="Decompose.cs" />
+=======
+    <Compile Include="Components\Modification\ReadRoomProperties.cs" />
+    <Compile Include="Components\Modification\ReadFaceProperties.cs" />
+    <Compile Include="Components\RunSimulation.cs" />
+    <Compile Include="Components\Decompose.cs" />
+>>>>>>> master
     <Compile Include="ThrebUtilsTest.cs" />
-    <Compile Include="ReadConstruction.cs" />
-    <Compile Include="UpdateConstruction.cs" />
+    <Compile Include="Components\Modification\ReadConstruction.cs" />
+    <Compile Include="Components\Modification\UpdateConstruction.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="FilterFaceByProperty.cs" />
-    <Compile Include="ExportR.cs" />
-    <Compile Include="THERB.cs" />
+    <Compile Include="Components\Modification\FilterFaceByProperty.cs" />
+    <Compile Include="Components\Exporter\ExportR.cs" />
+    <Compile Include="Components\THERB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +91,7 @@
       <Version>7.20.22193.9001</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
