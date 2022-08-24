@@ -47,7 +47,8 @@ namespace Model
             {
                 preview += Environment.NewLine;
                 preview += " id       :" + id + Environment.NewLine;
-                preview += " parentId :" + parent.id;
+                preview += " parentId :" + parent.id + Environment.NewLine;
+                preview += " structureId :" + structureId;
             }
             catch { }
             return preview;

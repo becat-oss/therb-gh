@@ -309,6 +309,7 @@ namespace Model
         public void setConstructionId()
         {
             //Print("{0}", elementType);
+            //ここをenvelopeの入力によって変えるようにする
             switch (elementType)
             {
                 case ElementType.exteriorWall:
@@ -352,12 +353,10 @@ namespace Model
             try
             {
                 preview += Environment.NewLine;
-                preview += " surfaceType       :" + surfaceType + Environment.NewLine;
                 preview += " id                :" + id + Environment.NewLine;
                 preview += " BoundaryCondition :" + bc + Environment.NewLine;
                 preview += " elementType       :" + elementType + Environment.NewLine;
                 preview += " parentId          :" + parent.id + Environment.NewLine;
-                preview += " tempNormal        :" + tempNormal + Environment.NewLine;
                 preview += " direction         :" + direction + Environment.NewLine;
                 preview += " adjacencyRoomId   :" + adjacencyRoomId + Environment.NewLine;
                 preview += " unique            :" + unique + Environment.NewLine;

@@ -39,6 +39,7 @@ namespace THERBgh
             pManager.AddSurfaceParameter("windows", "windows", "list of windows", GH_ParamAccess.list);
             pManager.AddSurfaceParameter("overhangs", "overhangs", "list of overhangs", GH_ParamAccess.list);
             pManager.AddNumberParameter("tol", "tolerance", "tolerance", GH_ParamAccess.item, 0.1);
+            //pManager.AddGenericParameter("Envelope", "Envelope", "Envelope class", GH_ParamAccess.item);
             pManager[1].Optional = true;
             pManager[2].Optional = true;
         }
