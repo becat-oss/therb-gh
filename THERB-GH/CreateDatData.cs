@@ -160,7 +160,7 @@ namespace THERBgh
                 + Converter.FillEmpty(window.area, 12, 4)
                 + "    0\r\n  structure No. "
                 + Converter.FillEmpty(window.structureId, 5)
-                + "  overhang No.     0      wing1 No.    0   wing2 No.    0\r\n";
+                + "  overhang No." + Converter.FillEmpty(window.overhangId, 6)+"      wing1 No.    0   wing2 No.    0\r\n"; //動的に変わるようにする
             });
 
             string doorIds = "   0   0   0   0   0   0   0   0   0   0   0";
@@ -365,7 +365,7 @@ namespace THERBgh
                 {ElementType.interiorFloor," 0.70 0.90 0.70 0.90 0.000e-09 0.000e-10"},
                 {ElementType.exteriorRoof," 0.70 0.90 0.70 0.90 0.000e-09 0.000e-10"},
                 {ElementType.groundFloor," 0.70 0.90 0.70 0.90 0.000e-09 0.000e-10"},
-                {ElementType.window," 0.00 0.84 0.00 0.84 0.000e-00 0.000e-00"},
+                {ElementType.window," 0.00 0.84 0.00 0.84 0.000e-00 0.000e-00"},//今のところ、日射熱取得率は0.84で固定
             };
 
             constructions.ForEach(construction =>
@@ -517,16 +517,18 @@ namespace THERBgh
                 + "ｽｹｼﾞｭｰﾙ データ     -s.dat \r\n"
                 + "------------------ ------- i（計算日） \r\n"
                 + "計算年             -      2019 \r\n"
-                + "計算開始月         -         " + startMonth.ToString() + " \r\n"
+                //+ "計算開始月         -" + Converter.FillEmpty(startMonth.ToString(),10) + " \r\n"
+                + "計算開始月         -         1 \r\n"
                 + "計算開始日         -         1 \r\n"
-                + "計算日数           -       " + calcDays.ToString() + " \r\n"
+                //+ "計算日数           -" + Converter.FillEmpty(calcDays.ToString(),10) + " \r\n"
+                + "計算日数           -       365 \r\n"
                 + "予備計算日数       -         5 \r\n"
                 + "------------------ ------- i（0：無し，1：簡易（吸放湿無し）2：詳細（吸放湿有り） \r\n"
                 + "湿度計算の有無     -         0 \r\n"
                 + "------------------ ---.--- （計算地域等の基本データ） \r\n"
                 + "緯度      (°)     -  33.60 \r\n"
                 + "経度      (°)     - 130.22 \r\n"
-                + "建物方位角(°)     -  " + NorthDegree(northDirection).ToString() + " \r\n"
+                + "建物方位角(°)     -" + Converter.FillEmpty(NorthDegree(northDirection),6,1) + " \r\n"
                 + "地表面日射吸収率   -   0.8 \r\n"
                 + "地表面長波放射率   -   0.9 \r\n"
                 + "------------------ -----.- （計算時間間隔） \r\n"
@@ -624,7 +626,8 @@ namespace THERBgh
             else
                 northDegree = angle2;
 
-            return Math.Round(northDegree,1);
+            //return Math.Round(northDegree,1);
+            return northDegree;
         }
     }
     public class ResEnvelope

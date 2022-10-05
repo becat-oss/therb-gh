@@ -264,18 +264,17 @@ namespace THERBgh
             {
                 writer.Write(aDat);
             }
-
+            //Schedule inputがあるときには、以下のロジックを回す。ないときには回さない
             using (StreamWriter writer = File.CreateText(Path.Combine(namePath, CREATE_FILE_S)))
             {
                 writer.Write(sDat);
             }
 
             //t.datだけはshift-JISで書き出す
-            //Schedule inputがあるときには、以下のロジックを回す。ないときには回さない
-            //using (StreamWriter sw = new StreamWriter(Path.Combine(namePath, CREATE_FILE_T), false, Encoding.GetEncoding("shift-jis")))
-            //{
-            //    sw.Write(tDat);
-            //};
+            using (StreamWriter sw = new StreamWriter(Path.Combine(namePath, CREATE_FILE_T), false, Encoding.GetEncoding("shift-jis")))
+            {
+                sw.Write(tDat);
+            };
 
 
             if (cloudRun)

@@ -22,6 +22,11 @@ namespace Model
             _totalOverhangs = 0;
         }
 
+        public static void InitTotalOverhang()
+        {
+            _totalOverhangs = 0;
+        }
+
         public Overhang(Surface geometry) : base(geometry)
         {
             guid = Guid.NewGuid();

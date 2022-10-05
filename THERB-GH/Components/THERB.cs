@@ -155,6 +155,7 @@ namespace THERBgh
             }
             //overhangがどのwallの上にあるかどうかを判断するロジック
             List<Overhang> overhangList = overhangOnWindow(windowList,overhangs);
+            Overhang.InitTotalOverhang();
 
             //overhang情報をfaceにaddする
             List<Face> faceListOverhang = new List<Face>();
