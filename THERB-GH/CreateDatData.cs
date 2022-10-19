@@ -367,7 +367,7 @@ namespace THERBgh
                 {ElementType.window," 0.00 0.84 0.00 0.84 0.000e-00 0.000e-00"},
             };
 
-            //
+            //constructionsのorderをreverseする=>室内側と室外側が逆だった  
 
             constructions.ForEach(construction =>
             {
