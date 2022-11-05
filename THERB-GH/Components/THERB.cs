@@ -125,7 +125,6 @@ namespace THERBgh
             List<Face> faceListBC = solveBoundary(faceList, tol);
 
             //windowがどのwallの上にあるかどうかを判断するロジック
-
             List<Window> windowList = windowOnFace(faceListBC, windows);
             Window.InitTotalWindow();
 
