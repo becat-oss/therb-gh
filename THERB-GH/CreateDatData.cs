@@ -197,15 +197,16 @@ namespace THERBgh
                 + Converter.FillEmpty(inMat.structureId, 5) + "\r\n";
             });
 
+            //屋根の情報を抽出
             exteriorRoofs.ForEach(roof =>
             {
                 bDat += Converter.FillEmpty("Roof " + roof.partId.ToString(), 13)
                 + Converter.FillEmpty(roof.minPt.X, 8, 3)
                 + Converter.FillEmpty(roof.minPt.Y, 8, 3)
-                + Converter.FillEmpty(roof.minPt.Z, 8, 3)
+                + Converter.FillEmpty(" ", 8)
                 + Converter.FillEmpty(roof.maxPt.X, 8, 3)
                 + Converter.FillEmpty(roof.maxPt.Y, 8, 3)
-                + Converter.FillEmpty(roof.maxPt.Z, 8, 3)
+                + Converter.FillEmpty(0, 8,3)
                 + Converter.FillEmpty(roof.tiltAngle, 10, 3)
                 + Converter.FillEmpty(roof.area, 12, 4)
                 + "    0\r\n  structure No. "
