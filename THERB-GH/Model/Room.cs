@@ -23,6 +23,7 @@ namespace Model
         public List<Face> floors;
         public List<Face> roofs;
         public double volume;
+
         static Room()
         {
             _totalRooms = 0;
@@ -152,6 +153,12 @@ namespace Model
                 return RoomStatus.InGround;
 
             return RoomStatus.Buried;
+        }
+
+        public void Transform(Transform transform)
+        {
+            this.geometry.Transform(transform);
+            this.centroid.Transform(transform);
         }
     }
 }
