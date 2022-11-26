@@ -173,6 +173,7 @@ namespace THERBgh
             DA.SetData("Therb", _therb);
         }
 
+        [Obsolete]
         private List<Brep> SplitGeometry(List<Brep> breps, double tol)
         {
             if (breps.Count == 1)

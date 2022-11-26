@@ -119,6 +119,10 @@ namespace THERBgh
             Therb therb = null;
             DA.GetData(0, ref therb);
 
+            therb.CheckTherb(out List<string> messages);
+            foreach(string s in messages)
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, s);
+
             if (therb == null) return;
 
             List<Construction> constructionList = new List<Construction>();
@@ -137,6 +141,9 @@ namespace THERBgh
             //DA.GetData("cloud", ref cloudRun);
             DA.GetData("run", ref done);
             if (!done) return;
+
+            foreach (string s in messages)
+                MessageBox.Show(s);
 
             var bDat = CreateDatData.CreateBDat(therb);
             var rDat = CreateDatData.CreateRDat(therb);

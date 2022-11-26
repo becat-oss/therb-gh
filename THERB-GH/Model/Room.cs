@@ -23,6 +23,7 @@ namespace Model
         public List<Face> floors;
         public List<Face> roofs;
         public double volume;
+
         static Room()
         {
             _totalRooms = 0;
@@ -151,5 +152,33 @@ namespace Model
             return preview;
         }
 
+        public enum RoomStatus
+        {
+            OnGround,
+            Floating,
+            Buried,
+            InGround
+        }
+        public RoomStatus CheckRoom()
+        {
+            var BoundingBox = this.geometry.GetBoundingBox(false);
+            var minZ = BoundingBox.Min.Z;
+            var maxZ = BoundingBox.Max.Z;
+            
+            if (minZ == 0)
+                return RoomStatus.OnGround;
+            if (0 < minZ)
+                return RoomStatus.Floating;
+            if (maxZ < 0)
+                return RoomStatus.InGround;
+
+            return RoomStatus.Buried;
+        }
+
+        public void Transform(Transform transform)
+        {
+            this.geometry.Transform(transform);
+            this.centroid.Transform(transform);
+        }
     }
 }

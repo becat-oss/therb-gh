@@ -46,5 +46,9 @@ namespace Model
             this.overhang = overhang;
             overhangId = overhang.id;
         }
+        public void Transform(Transform transform)
+        {
+            this.geometry.Transform(transform);
+        }
     }
 }
