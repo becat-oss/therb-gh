@@ -67,7 +67,7 @@ jobs:
         run: |
           cp ./example ./Release/example -recurse
           cp ./LICENSE ./Release/LICENSE.txt
-          cp ./THERB-GH/bin/Release/net48 ./Release/THERB-GH -recurse
+          cp ./THERB-GH/bin/ ./Release/THERB-GH -recurse
 
       # 対象パスにあるファイルを GitHub にアップロードする
       - name: Upload release build of plugin as artefact
@@ -107,6 +107,8 @@ jobs:
       - name: create release
         id: create_release
         uses: release-drafter/release-drafter@v5
+        with:
+          config-name: release-drafter.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
