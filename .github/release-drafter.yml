@@ -14,8 +14,6 @@ categories:
     labels:
       - 'chore'
 change-title-escapes: '\<*_&'
-exclude-labels:
-  - 'exclude from changelog'
 template: |
    ## Changes
 
