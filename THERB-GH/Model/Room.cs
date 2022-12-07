@@ -46,7 +46,7 @@ namespace Model
             this.vertices = vertices;
             minPt = getMinCoord(vertices);
             maxPt = getMaxCoord(vertices);
-            sWalls = new List<Face>();
+            sWalls = new List<Face>();//これらは紐づくwindowの数も加える  
             wWalls = new List<Face>();
             nWalls = new List<Face>();
             eWalls = new List<Face>();
@@ -91,6 +91,26 @@ namespace Model
             {
                 floors.Add(face);
             }
+
+            //窓も追加する
+            face.windows.ForEach(window =>
+            {
+                switch (face.direction)
+                {
+                    case Direction.S:
+                        sWalls.Add(face);
+                        break;
+                    case Direction.N:
+                        nWalls.Add(face);
+                        break;
+                    case Direction.W:
+                        wWalls.Add(face);
+                        break;
+                    case Direction.E:
+                        eWalls.Add(face);
+                        break;
+                }
+            });
         }
 
         public List<int> getDirectionList()

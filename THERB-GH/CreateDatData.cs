@@ -278,6 +278,7 @@ namespace THERBgh
                 {"CR",1},
             };
 
+            //Roomデータに対する処理
             roomList.ForEach(room =>
             {
                 List<int> directions = room.getDirectionList();
@@ -367,7 +368,7 @@ namespace THERBgh
                 {ElementType.window," 0.00 0.84 0.00 0.84 0.000e-00 0.000e-00"},
             };
 
-            //
+            //constructionsのorderをreverseする=>室内側と室外側が逆だった  
 
             constructions.ForEach(construction =>
             {
@@ -420,7 +421,16 @@ namespace THERBgh
                 //4行目入力 厚み
                 construction.thickness.ForEach(thickness =>
                 {
-                    wDat += Converter.FillEmpty(thickness/1000, 10, 3);
+                    double ceiledThickness = thickness / 1000;
+
+                    //厚みが1mm以下のマテリアルはTHERBが読み込めない
+                    if (thickness <= 1)
+                    {
+                        ceiledThickness = 0.001;
+                    }
+
+                    
+                    wDat += Converter.FillEmpty(ceiledThickness, 10, 3);
                 });
                 wDat += FillMultipleZeros(13 - numMaterials, 10,3);
                 wDat += " \r\n";

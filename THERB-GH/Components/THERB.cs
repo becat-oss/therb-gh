@@ -124,23 +124,11 @@ namespace THERBgh
             //FaceのboundaryConditionを計算する処理
             List<Face> faceListBC = solveBoundary(faceList, tol);
 
-            //Roomに属するfaceの属性(wall,ceiling,roof)を集計するロジック
-            foreach (Room room in roomList)
-            {
-                List<Face> faces = room.getFaces();
-                foreach (Face face in faces)
-                {
-                    room.groupChildFaces(face);
-                }
-            }
             //windowがどのwallの上にあるかどうかを判断するロジック
-
             List<Window> windowList = windowOnFace(faceListBC, windows);
             Window.InitTotalWindow();
 
             //window情報をfaceにaddする
-            //refパラメータとか使ってwindowOnFaceに付加するのがいいかも
-
             List<Face> faceListWindow = new List<Face>();
             foreach (Face face in faceListBC)
             {
@@ -153,6 +141,17 @@ namespace THERBgh
                 }
                 faceListWindow.Add(face);
             }
+
+            //Roomに属するfaceの属性(wall,ceiling,roof)を集計するロジック
+            foreach (Room room in roomList)
+            {
+                List<Face> faces = room.getFaces();
+                foreach (Face face in faces)
+                {
+                    room.groupChildFaces(face);
+                }
+            }
+
             //overhangがどのwallの上にあるかどうかを判断するロジック
             List<Overhang> overhangList = overhangOnWindow(windowList,overhangs);
 
