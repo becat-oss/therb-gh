@@ -9,7 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Grasshopper.Kernel;
+using Model;
+using Newtonsoft.Json;
 using Rhino.Geometry;
+using THERBgh;
 
 namespace Components.Modification
 {
@@ -42,8 +45,11 @@ namespace Components.Modification
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddGenericParameter("Therb", "therb", "THERB class", GH_ParamAccess.item);
+            pManager.AddGenericParameter("_Envelope", "Envelope", "Envelope class", GH_ParamAccess.item);
             pManager.AddTextParameter("o_dat_file_path", "o_dat_file_path", "o.dat file path", GH_ParamAccess.item);
             pManager.AddBooleanParameter("run", "run", "run upload result", GH_ParamAccess.item);
+            pManager[1].Optional = true;
         }
 
         /// <summary>
@@ -64,6 +70,12 @@ namespace Components.Modification
             DA.GetData("run", ref done);
             if (!done) return;
 
+            Therb therb = null;
+            DA.GetData(0, ref therb);
+
+            Envelope envelope = null;
+            DA.GetData(1, ref envelope);
+
             var path = "";
             DA.GetData("o_dat_file_path", ref path);
 
@@ -71,7 +83,7 @@ namespace Components.Modification
 
             char[] seps = { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar };
             var paths = path.Split(seps);
-            var name = paths[paths.Length - 2];
+            var name = paths[paths.Length - 2];// RunSimulationのnameと同じ
 
             using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
@@ -104,13 +116,21 @@ namespace Components.Modification
 
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
+                        var responseContentStr = "";
                         Debug.WriteLine(response.Content);
-                        MessageBox.Show("送信できました。");
+                        MessageBox.Show("oファイル送信できました。");
                         using (Stream responseStream = response.Content.ReadAsStreamAsync().Result)
                         {
                             using (StreamReader sr = new StreamReader(responseStream, Encoding.UTF8))
-                                DA.SetData("result", sr.ReadToEnd());
+                            {
+                                responseContentStr = sr.ReadToEnd();
+                                DA.SetData("result", responseContentStr);
+                            }
                         }
+
+                        var responseContent = JsonConvert.DeserializeObject<ResponseContent>(responseContentStr);
+                        therb.PostArea(responseContent.data.project_id, envelope);
+
                     }
                     Debug.WriteLine(response.StatusCode);
                 }
@@ -143,6 +163,19 @@ namespace Components.Modification
         public override Guid ComponentGuid
         {
             get { return new Guid("5D5ACFE6-B114-4F48-9A35-0E57826680C5"); }
+        }
+    }
+    public class ResponseContent
+    {
+
+        public Data data;
+        public string message;
+        public string status;
+        public class Data
+        {
+            public string api;
+            public string project_id;
+            public string url;
         }
     }
 }
