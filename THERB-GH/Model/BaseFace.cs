@@ -9,6 +9,23 @@ using System.Collections.ObjectModel;
 
 namespace Model
 {
+    public enum ElementTypeForTotalArea
+    {
+        exteriorWall,
+        interiorWall,
+        exteriorFloor,
+        interiorFloor,
+        interiorRoof,
+        exteriorRoof,
+        interiorCeiling,
+        exteriorCeiling,
+        groundFloor,
+        groundRoof,
+        groundWall,
+        groundCeiling,
+        window,
+        skylight
+    }
     public class BaseFace : BaseGeo
     {
         public int parentId;
@@ -49,6 +66,23 @@ namespace Model
         public void Transform(Transform transform)
         {
             this.geometry.Transform(transform);
+        }
+
+        public static ElementTypeForTotalArea ToElementTypeForTotalArea(ElementType elementType)
+        {
+            if (elementType == ElementType.exteriorWall) return ElementTypeForTotalArea.exteriorWall;
+            if (elementType == ElementType.interiorWall) return ElementTypeForTotalArea.interiorWall;
+            if (elementType == ElementType.exteriorFloor) return ElementTypeForTotalArea.exteriorFloor;
+            if (elementType == ElementType.interiorFloor) return ElementTypeForTotalArea.interiorFloor;
+            if (elementType == ElementType.interiorRoof) return ElementTypeForTotalArea.interiorRoof;
+            if (elementType == ElementType.exteriorRoof) return ElementTypeForTotalArea.exteriorRoof;
+            if (elementType == ElementType.interiorCeiling) return ElementTypeForTotalArea.interiorCeiling;
+            if (elementType == ElementType.exteriorCeiling) return ElementTypeForTotalArea.exteriorCeiling;
+            if (elementType == ElementType.groundFloor) return ElementTypeForTotalArea.groundFloor;
+            if (elementType == ElementType.groundRoof) return ElementTypeForTotalArea.groundRoof;
+            if (elementType == ElementType.groundWall) return ElementTypeForTotalArea.groundWall;
+            if (elementType == ElementType.groundCeiling) return ElementTypeForTotalArea.groundCeiling;
+            throw new Exception("error GetElementTypeForTotalArea");
         }
     }
 }
