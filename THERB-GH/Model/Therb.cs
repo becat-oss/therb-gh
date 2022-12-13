@@ -37,7 +37,7 @@ namespace Model
     public class SendData
     {
         public AreaData area;
-        public string envelopeId;
+        public string envelope_id;
     }
     public class Therb
     {
@@ -170,22 +170,22 @@ namespace Model
             var totalAreaForElementType = this.TotalAreaForElementType;
             var sendData = new SendData();
             sendData.area = new AreaData();
-            sendData.area.exteriorWall = totalAreaForElementType[ElementTypeForTotalArea.exteriorWall];
-            sendData.area.interiorWall = totalAreaForElementType[ElementTypeForTotalArea.interiorWall];
-            sendData.area.exteriorFloor = totalAreaForElementType[ElementTypeForTotalArea.exteriorFloor];
-            sendData.area.interiorFloor = totalAreaForElementType[ElementTypeForTotalArea.interiorFloor];
-            sendData.area.interiorRoof = totalAreaForElementType[ElementTypeForTotalArea.interiorRoof];
-            sendData.area.exteriorRoof = totalAreaForElementType[ElementTypeForTotalArea.exteriorRoof];
-            sendData.area.interiorCeiling = totalAreaForElementType[ElementTypeForTotalArea.interiorCeiling];
-            sendData.area.exteriorCeiling = totalAreaForElementType[ElementTypeForTotalArea.exteriorCeiling];
-            sendData.area.groundFloor = totalAreaForElementType[ElementTypeForTotalArea.groundFloor];
-            sendData.area.groundRoof = totalAreaForElementType[ElementTypeForTotalArea.groundRoof];
-            sendData.area.groundWall = totalAreaForElementType[ElementTypeForTotalArea.groundWall];
-            sendData.area.groundCeiling = totalAreaForElementType[ElementTypeForTotalArea.groundCeiling];
-            sendData.area.window = totalAreaForElementType[ElementTypeForTotalArea.window];
-            sendData.area.skylight = totalAreaForElementType[ElementTypeForTotalArea.skylight];
-            if(envelope != null)
-                sendData.envelopeId = envelope.id;
+            sendData.area.exteriorWall = Math.Round(totalAreaForElementType[ElementTypeForTotalArea.exteriorWall],2);
+            sendData.area.interiorWall = Math.Round(totalAreaForElementType[ElementTypeForTotalArea.interiorWall], 2);
+            sendData.area.exteriorFloor = Math.Round(totalAreaForElementType[ElementTypeForTotalArea.exteriorFloor], 2);
+            sendData.area.interiorFloor = Math.Round(totalAreaForElementType[ElementTypeForTotalArea.interiorFloor], 2);
+            sendData.area.interiorRoof = Math.Round(totalAreaForElementType[ElementTypeForTotalArea.interiorRoof], 2);
+            sendData.area.exteriorRoof = Math.Round(totalAreaForElementType[ElementTypeForTotalArea.exteriorRoof], 2);
+            sendData.area.interiorCeiling = Math.Round(totalAreaForElementType[ElementTypeForTotalArea.interiorCeiling], 2);
+            sendData.area.exteriorCeiling = Math.Round(totalAreaForElementType[ElementTypeForTotalArea.exteriorCeiling], 2);
+            sendData.area.groundFloor = Math.Round(totalAreaForElementType[ElementTypeForTotalArea.groundFloor], 2);
+            sendData.area.groundRoof = Math.Round(totalAreaForElementType[ElementTypeForTotalArea.groundRoof], 2);
+            sendData.area.groundWall = Math.Round(totalAreaForElementType[ElementTypeForTotalArea.groundWall], 2);
+            sendData.area.groundCeiling = Math.Round(totalAreaForElementType[ElementTypeForTotalArea.groundCeiling], 2);
+            sendData.area.window = Math.Round(totalAreaForElementType[ElementTypeForTotalArea.window], 2);
+            sendData.area.skylight = Math.Round(totalAreaForElementType[ElementTypeForTotalArea.skylight], 2);
+            if (envelope != null)
+                sendData.envelope_id = envelope.id;
             var rowdata = JsonConvert.SerializeObject(sendData);
 
             try
