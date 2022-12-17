@@ -237,7 +237,7 @@ namespace THERBgh
                 + Converter.FillEmpty(overhang.minPt.X, 8, 3)
                 + Converter.FillEmpty(overhang.minPt.Y, 8, 3)
                 + Converter.FillEmpty(overhang.minPt.Z, 8, 3)
-                + Converter.FillEmpty(overhang.minPt.X, 8, 3)
+                + Converter.FillEmpty(overhang.maxPt.X, 8, 3)
                 + Converter.FillEmpty(overhang.maxPt.Y, 8, 3)
                 //庇の出はparentFaceのnormal directionによって決まる
                 + Converter.FillEmpty(length, 8, 3)

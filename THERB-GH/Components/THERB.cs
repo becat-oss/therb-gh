@@ -255,7 +255,6 @@ namespace THERBgh
             return windowList;
         }
 
-        //TODO: refactorしてwindowOnFaceと一緒の関数にする
         private List<Overhang> overhangOnWindow(List<Window> windowList, List<Surface> overhangs)
         {
             List<Overhang> overhangList = new List<Overhang>();
