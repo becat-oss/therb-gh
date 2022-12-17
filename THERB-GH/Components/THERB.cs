@@ -125,7 +125,10 @@ namespace THERBgh
             List<Face> faceListBC = solveBoundary(faceList, tol);
 
             //windowがどのwallの上にあるかどうかを判断するロジック
-            List<Window> windowList = windowOnFace(faceListBC, windows);
+            var messages = new List<string>();
+            List<Window> windowList = windowOnFace(faceListBC, windows, tol, ref messages);
+            foreach (var message in messages)
+                this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, message);
             Window.InitTotalWindow();
 
             //window情報をfaceにaddする
@@ -197,33 +200,54 @@ namespace THERBgh
             return splitGeos;
         }
 
-        private List<Window> windowOnFace(List<Face> faceList, List<Surface> windows)
+        private enum StateSurfPoint
+        {
+            Unknown,
+            OnFace,
+            NotOnFace
+        }
+        private List<Window> windowOnFace(List<Face> faceList, List<Surface> windows, double tol, ref List<string> messages)
         {
             //TODO:内壁に窓を配置するケースもあるっぽい
             List<Face> externalFaces = faceList.FindAll(face => face.bc == BoundaryCondition.exterior);
 
             List<Window> windowList = new List<Window>();
-            foreach(Surface windowGeo in windows) {
-                Face parent = externalFaces[0];
-                double closestDistance = 10000;
-                Window window = new Window(windowGeo,envelope);
-                foreach(Face exFace in externalFaces)
+            foreach(Surface windowGeo in windows)
+            {
+                Window window = new Window(windowGeo, envelope);
+                foreach (Face exFace in externalFaces)
                 {
-                    double distance = window.centerPt.DistanceTo(exFace.centerPt);
-                    if (distance < closestDistance)
+                    var state = StateSurfPoint.Unknown;
+                    foreach (Point3d coner in windowGeo.ToBrep().DuplicateVertices())
                     {
-                        parent = exFace;
-                        closestDistance = distance;
-                    }
-                }
+                        if (exFace.geometry.ClosestPoint(coner, out double u, out double v)){
+                            var onPoint = exFace.geometry.PointAt(u, v);
+                            if(coner.DistanceTo(onPoint) < tol)
+                            {
+                                if (state == StateSurfPoint.NotOnFace)
+                                {
+                                    state = StateSurfPoint.NotOnFace;
+                                    messages.Add("壁端に窓が配置されています。");
+                                    break;
+                                }
+                                state = StateSurfPoint.OnFace;
+                            }
+                            else
+                            {
+                                if (state == StateSurfPoint.OnFace)
+                                {
+                                    state = StateSurfPoint.NotOnFace;
+                                    messages.Add("壁端に窓が配置されています。");
+                                    break;
+                                }
+                                state = StateSurfPoint.NotOnFace;
+                            }
+                        }
+                        else throw new Exception("壁-窓判定ができませんでした。");
 
-                if (closestDistance < 10000)
-                {
-                    window.addParent(parent);
-                }
-                else
-                {
-                    //TODO:エラー処理を加える
+                    }
+                    if (state == StateSurfPoint.OnFace)
+                        window.addParent(exFace);
                 }
                 windowList.Add(window);
 
