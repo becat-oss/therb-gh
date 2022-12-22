@@ -1,0 +1,29 @@
+@startuml
+enum VisualizeType {
+    partId,
+    elementType,
+    structureId,
+    direction,
+    None,
+}
+class ReadFaceProperty {
+    + ReadFaceProperty()
+    <<const>> FONT_SIZE_NAME : string = "fontsize"
+    <<const>> DEFALT_FONT_SIZE : int = 12
+    - _fontsize : int
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+    # <<override>> AppendAdditionalComponentMenuItems(menu:ToolStripDropDown) : void
+    # Menu_TextBoxChanged(sender:GH_MenuTextBox, newText:string) : void
+    + <<override>> Write(writer:GH_IWriter) : bool
+    + <<override>> Read(reader:GH_IReader) : bool
+    + <<override>> DrawViewportWires(args:IGH_PreviewArgs) : void
+}
+class "List`1"<T> {
+}
+GH_Component <|-- ReadFaceProperty
+ReadFaceProperty --> "_faces<Face>" "List`1"
+ReadFaceProperty --> "_visualizeType" VisualizeType
+ReadFaceProperty --> "ComponentGuid" Guid
+@enduml

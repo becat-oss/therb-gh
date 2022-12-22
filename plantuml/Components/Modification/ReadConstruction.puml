@@ -1,0 +1,12 @@
+@startuml
+class ReadConstruction {
+    <<const>> OPAQUE_URL : string = "https://stingray-app-vgak2.ondigitalocean.app/constructions"
+    <<const>> TRANSLUCENT_URL : string = "https://stingray-app-vgak2.ondigitalocean.app/windows"
+    + ReadConstruction()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- ReadConstruction
+ReadConstruction --> "ComponentGuid" Guid
+@enduml

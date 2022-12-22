@@ -1,0 +1,758 @@
+@startuml
+class CreateDatData {
+    + {static} CreateADat(therb:Therb, ach:double) : string
+    + {static} CreateBDat(therb:Therb) : string
+    + {static} CreateRDat(therb:Therb) : string
+    + {static} CreateWDat(constructions:List<Construction>) : string
+    + {static} CreateSDat(schedule:Schedule, rooms:List<Room>) : string
+    + {static} CreateTDat(startMonth:int, EndMonth:int, northDirection:Vector3d) : string
+    - {static} FillSchedule(schedule:List<int>, eachLength:int) : string
+    - {static} FillSchedule(schedule:List<int>, eachLength:int, digit:int) : string
+    - {static} FillMultipleZeros(repeatNum:int, totalLength:int, digit:int) : string
+    - {static} OutputWindowIds(face:Face) : string
+    - {static} CavityLayers(numMaterials:int, cavityLayer:int, glassNumber:double, cavityNumber:double, digit:int) : string
+    - {static} NorthDegree(north:Vector3d) : double
+}
+class Setting {
+    + startMonth : int
+    + endMonth : int
+    + ventilationRate : double
+    + Setting()
+    + Setting(northDirection:Vector3d, startMonth:int, endMonth:int, ventilationRate:double)
+}
+class ResEnvelope {
+}
+class EnvelopePayload {
+    + name : string
+    + id : string
+}
+class Envelope {
+    + name : string
+    + id : string
+    + exteriorWallId : int
+    + interiorWallId : int
+    + floorCeilingId : int
+    + groundFloorId : int
+    + roofId : int
+    + windowId : int
+    + Envelope()
+    + Envelope(payload:EnvelopePayload, count:int)
+    + Envelope(exWallId:int, inWallId:int, floorCeilId:int, exRoofId:int, groundFlrId:int, windowCntId:int)
+    + <<override>> ToString() : string
+}
+class ResSchedule {
+}
+class Schedule {
+    + name : string
+    + description : string
+    + <<override>> ToString() : string
+}
+class WeeklySch {
+}
+class MonthlySch {
+}
+class DailySch {
+}
+class ResConstruction {
+}
+class ResTranslucent {
+}
+class TranslucentPayload {
+    + id : string
+}
+class Translucent {
+    + id : string
+    + Translucent()
+    + Translucent(translucent:TranslucentPayload, count:int)
+}
+class ResOpaque {
+}
+class Opaque {
+    + id : string
+}
+class Construction {
+    + id : string
+    + Construction()
+    + Construction(opaque:Opaque)
+    + Construction(traslucent:Translucent)
+    + <<override>> ToString() : string
+    + filterByCategory(category:ElementType) : bool
+}
+class Material {
+    + id : string
+    + name : string
+    + conductivity : double
+    + density : double
+    + specificHeat : double
+    + classification : int
+    + {static} GetNames(materials:List<Material>) : List<string>
+}
+class "List`1"<T> {
+}
+Setting --> "northDirection" Vector3d
+ResEnvelope --> "data<EnvelopePayload>" "List`1"
+EnvelopePayload --> "exteriorWall" Opaque
+EnvelopePayload --> "interiorWall" Opaque
+EnvelopePayload --> "floorCeiling" Opaque
+EnvelopePayload --> "groundFloor" Opaque
+EnvelopePayload --> "roof" Opaque
+EnvelopePayload --> "window" Translucent
+Envelope --> "exteriorWall" Opaque
+Envelope --> "interiorWall" Opaque
+Envelope --> "floorCeiling" Opaque
+Envelope --> "groundFloor" Opaque
+Envelope --> "roof" Opaque
+Envelope --> "window" Translucent
+ResSchedule --> "data<Schedule>" "List`1"
+Schedule --> "monthly" MonthlySch
+Schedule --> "weekly" WeeklySch
+Schedule --> "daily" DailySch
+WeeklySch --> "hvac<int>" "List`1"
+MonthlySch --> "hvac<int>" "List`1"
+DailySch --> "hvac<int>" "List`1"
+DailySch --> "heating<int>" "List`1"
+DailySch --> "cooling<int>" "List`1"
+ResConstruction --> "data<Construction>" "List`1"
+ResTranslucent --> "data<TranslucentPayload>" "List`1"
+TranslucentPayload --> "categories" ElementType
+TranslucentPayload --> "materials<Material>" "List`1"
+TranslucentPayload --> "thickness<Double>" "List`1"
+Translucent --> "categories" ElementType
+Translucent --> "materials<Material>" "List`1"
+Translucent --> "thickness<Double>" "List`1"
+ResOpaque --> "data<Opaque>" "List`1"
+Opaque --> "categories" ElementType
+Opaque --> "materials<Material>" "List`1"
+Opaque --> "thickness<Double>" "List`1"
+Construction --> "categories" ElementType
+Construction --> "materials<Material>" "List`1"
+Construction --> "thickness<Double>" "List`1"
+enum BoundaryCondition {
+    Outdoors,
+    Surface,
+    Ground,
+}
+enum SurfaceType {
+    Wall,
+    Roof,
+    Ceiling,
+    Floor,
+}
+class Baues {
+    + Baues(zones:List<Zone>)
+}
+class Zone {
+    + name : string
+    + multiplier : int
+    + roomId : int
+    + Zone(room:Room)
+    + addSurface(surface:SurfaceDetailed) : void
+}
+class BaseBaues {
+    + name : string
+    + constructionName : string
+    + getBauesVertices(vertices:BrepVertexList) : List<double>
+}
+class SurfaceDetailed {
+    + faceId : int
+    + surfaceTypeId : int
+    + boundaryConditionObject : string
+    + {static} _totalWalls : int
+    + {static} _totalRoofs : int
+    + {static} _totalCeilings : int
+    + {static} _totalFloors : int
+    {static} SurfaceDetailed()
+    + SurfaceDetailed(face:Face)
+    + addFenestration(fenestration:FenestrationDetailed) : void
+}
+class FenestrationDetailed {
+    + windowId : int
+    + {static} _totalFenestrations : int
+    {static} FenestrationDetailed()
+    + FenestrationDetailed(window:Window)
+}
+class BaseGeo {
+    + id : int
+    + displayName : string
+}
+class Therb {
+    + Therb(rooms:List<Room>, faces:List<Face>, windows:List<Window>)
+}
+class Room {
+    + {static} _totalRooms : int
+    {static} Room()
+    + initRoom() : void
+    + Room(geometry:Brep)
+    + addFace(face:Face) : void
+    + groupChildFaces(face:Face) : void
+    + getDirectionList() : List<int>
+    + getFaces() : List<Face>
+    - getMinCoord(vertices:BrepVertexList) : Point3d
+    - getMaxCoord(vertices:BrepVertexList) : Point3d
+}
+class BaseFace {
+    + parentId : int
+    + tiltAngle : double
+    + area : double
+    + constructionId : int
+    + BaseFace(geometry:Surface)
+}
+class Face {
+    + partId : int
+    + face : string <<get>>
+    + bc : string <<get>> <<set>>
+    + elementType : string <<get>> <<set>>
+    + direction : string
+    + adjacencyRoomId : int
+    + {static} _totalFaces : int
+    + {static} _totalExWalls : int
+    + {static} _totalInWalls : int
+    + {static} _totalFlrCeilings : int
+    + {static} _totalRoofs : int
+    + {static} _totalGrounds : int
+    {static} Face()
+    + initFace() : void
+    + Face(parent:Room, geometry:Surface, normal:Vector3d, tempNormal:Vector3d)
+    - defineDirection(normal:Vector3d) : string
+    + getFaceType(normal:Vector3d) : string
+    + addWindows(window:Window) : void
+    + setElementType() : void
+    + setConstructionId() : void
+}
+class Window {
+    + {static} _totalWindows : int
+    {static} Window()
+    + initWindow() : void
+    + Window(geometry:Surface)
+    + addParent(parent:Face) : void
+}
+class "List`1"<T> {
+}
+Baues --> "zones<Zone>" "List`1"
+Zone --> "surfaces<SurfaceDetailed>" "List`1"
+BaseBaues --> "vertices<double>" "List`1"
+BaseBaues <|-- SurfaceDetailed
+SurfaceDetailed --> "surfaceType" SurfaceType
+SurfaceDetailed --> "boundaryCondition" BoundaryCondition
+SurfaceDetailed --> "fenestrations<FenestrationDetailed>" "List`1"
+BaseBaues <|-- FenestrationDetailed
+BaseGeo --> "guid" Guid
+Therb --> "rooms<Room>" "List`1"
+Therb --> "faces<Face>" "List`1"
+Therb --> "windows<Window>" "List`1"
+BaseGeo <|-- Room
+Room --> "geometry" Brep
+Room --> "centroid" Point3d
+Room --> "_faceList<Face>" "List`1"
+Room --> "vertices" BrepVertexList
+Room --> "minPt" Point3d
+Room --> "maxPt" Point3d
+Room --> "sWalls<Face>" "List`1"
+Room --> "wWalls<Face>" "List`1"
+Room --> "nWalls<Face>" "List`1"
+Room --> "eWalls<Face>" "List`1"
+Room --> "floors<Face>" "List`1"
+Room --> "roofs<Face>" "List`1"
+BaseGeo <|-- BaseFace
+BaseFace --> "geometry" Surface
+BaseFace --> "normal" Vector3d
+BaseFace --> "centerPt" Point3d
+BaseFace --> "vertices" BrepVertexList
+BaseFace <|-- Face
+Face --> "parent" Room
+Face --> "tempNormal" Vector3d
+Face --> "windows<Window>" "List`1"
+Face --> "windowIds<int>" "List`1"
+Face --> "bauesBC" BoundaryCondition
+Face --> "adjacencyFace" Face
+BaseFace <|-- Window
+Window --> "parent" Face
+class THERBghInfo {
+    + <<override>> Name : string <<get>>
+    + <<override>> Description : string <<get>>
+    + <<override>> AuthorName : string <<get>>
+    + <<override>> AuthorContact : string <<get>>
+}
+GH_AssemblyInfo <|-- THERBghInfo
+THERBghInfo --> "Icon" Bitmap
+THERBghInfo --> "Id" Guid
+class ThrebUtilsTest <<static>> {
+    + {static} ExBoxTest() : void
+}
+class THERB {
+    + THERB()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+    - windowOnFace(faceList:List<Face>, windows:List<Surface>, zoneList:List<Zone>) : List<Window>
+    - solveBoundary(faceList:List<Face>, tol:double, zoneList:List<Zone>) : List<Face>
+    - shootIt(ray:Ray3d, srfs:List<Surface>, tol:double, bounce:int) : bool
+    - getClosestFaceFromFace(originFace:Face, faces:List<Face>) : Face
+    - reviseNormal(srf:Surface, parent:Room) : Vector3d
+}
+GH_Component <|-- THERB
+THERB --> "ComponentGuid" Guid
+class Converter {
+    + {static} FillEmpty(input:int, totalLength:int) : string
+    + {static} FillEmpty(input:string, totalLength:int) : string
+    + {static} FillEmpty(input:double, totalLength:int, digit:int) : string
+}
+class Compose {
+    + Compose()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- Compose
+Compose --> "ComponentGuid" Guid
+class Decompose {
+    + Decompose()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- Decompose
+Decompose --> "ComponentGuid" Guid
+class RunSimulation {
+    <<const>> THERB_FILE_NAME : string = "Therb.exe"
+    <<const>> THERB_FOLDER_PATH : string = @"C:\therb"
+    <<const>> CREATE_FILE_B : string = "b.dat"
+    <<const>> CREATE_FILE_R : string = "r.dat"
+    <<const>> CREATE_FILE_T : string = "t.dat"
+    <<const>> CREATE_FILE_W : string = "w.dat"
+    <<const>> CREATE_FILE_A : string = "a.dat"
+    <<const>> CREATE_FILE_S : string = "s.dat"
+    <<const>> CREATED_FILE_O : string = "o.dat"
+    <<const>> MAX_SERVER_TRY_COUNT : int = 6
+    + RunSimulation()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- RunSimulation
+RunSimulation --> "ComponentGuid" Guid
+class THERB {
+    + THERB()
+    <<const>> FONT_SIZE_NAME : string = "fontsize"
+    <<const>> DEFALT_FONT_SIZE : int = 12
+    - _fontsize : int
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+    - SplitGeometry(breps:List<Brep>, tol:double) : List<Brep>
+    - windowOnFace(faceList:List<Face>, windows:List<Surface>, tol:double, messages:List<string>) : List<Window>
+    - overhangOnWindow(windowList:List<Window>, overhangs:List<Surface>) : List<Overhang>
+    - solveBoundary(faceList:List<Face>, tol:double) : List<Face>
+    - shootIt(ray:Ray3d, srfs:List<Surface>, tol:double, bounce:int) : bool
+    - getClosestFaceFromFace(originFace:Face, faces:List<Face>) : Face
+    - reviseNormal(srf:Surface, parent:Room) : Vector3d
+    # <<override>> AppendAdditionalComponentMenuItems(menu:ToolStripDropDown) : void
+    # Menu_TextBoxChanged(sender:GH_MenuTextBox, newText:string) : void
+    + <<override>> Write(writer:GH_IWriter) : bool
+    + <<override>> Read(reader:GH_IReader) : bool
+    + <<override>> DrawViewportWires(args:IGH_PreviewArgs) : void
+}
+class ExBox {
+    + <<const>> STRIC_TOL : double = 1e-9
+    + ExBox(box:Box)
+    + {static} SplitGeometry(boxes:List<Box>, tol:double) : List<ExBox>
+    - {static} IsSamePlane(box1:Box, box2:Box) : bool
+    - {static} IsOnPlane(plane:Plane, point:Point3d) : bool
+    - {static} IsParallel(vec1:Vector3d, vec2:Vector3d) : bool
+    - {static} SplitSurface(curSurfs:List<Surface>, otherSurfs:List<Surface>) : List<Surface>
+    - {static} TrySplit(surface:Surface, point:Point3d, results:List<Surface>) : bool
+}
+enum StateSurfPoint {
+    Unknown,
+    OnFace,
+    NotOnFace,
+}
+class "List`1"<T> {
+}
+GH_Component <|-- THERB
+THERB --> "envelope" Envelope
+THERB --> "_therb" Therb
+THERB --> "ComponentGuid" Guid
+ExBox --> "Box" Box
+ExBox --> "BoxSurfaces<Surface>" "List`1"
+THERB +-- StateSurfPoint
+enum ElementTypeForTotalArea {
+    exteriorWall,
+    interiorWall,
+    exteriorFloor,
+    interiorFloor,
+    interiorRoof,
+    exteriorRoof,
+    interiorCeiling,
+    exteriorCeiling,
+    groundFloor,
+    groundRoof,
+    groundWall,
+    groundCeiling,
+    window,
+    skylight,
+}
+class BaseFace {
+    + parentId : int
+    + partId : int
+    + tiltAngle : double
+    + area : double
+    + constructionId : int
+    + structureId : int
+    + overhangId : int
+    + BaseFace(geometry:Surface)
+    + addOverhangs(overhang:Overhang) : void
+    + Transform(transform:Transform) : void
+    + {static} ToElementTypeForTotalArea(elementType:ElementType) : ElementTypeForTotalArea
+}
+BaseGeo <|-- BaseFace
+BaseFace --> "geometry" Surface
+BaseFace --> "normal" Vector3d
+BaseFace --> "centerPt" Point3d
+BaseFace --> "vertices" BrepVertexList
+BaseFace --> "overhang" Overhang
+class BaseGeo {
+    + id : int
+    + displayName : string
+    + getMinCoord(vertices:BrepVertexList) : Point3d
+    + getMaxCoord(vertices:BrepVertexList) : Point3d
+}
+BaseGeo --> "guid" Guid
+BaseGeo --> "minPt" Point3d
+BaseGeo --> "maxPt" Point3d
+enum BoundaryCondition {
+    exterior,
+    interior,
+    ground,
+}
+enum SurfaceType {
+    Wall,
+    Roof,
+    Ceiling,
+    Floor,
+}
+enum ElementType {
+    exteriorWall,
+    interiorWall,
+    exteriorFloor,
+    interiorFloor,
+    interiorRoof,
+    exteriorRoof,
+    interiorCeiling,
+    exteriorCeiling,
+    groundFloor,
+    groundRoof,
+    groundWall,
+    groundCeiling,
+    window,
+}
+enum FaceKeys {
+    bc,
+    elementType,
+    direction,
+}
+enum Direction {
+    N,
+    S,
+    W,
+    E,
+    F,
+    CR,
+}
+class Face {
+    + adjacencyRoomId : int
+    + unique : bool
+    + {static} _totalFaces : int
+    + {static} _totalExWalls : int
+    + {static} _totalInWalls : int
+    + {static} _totalFlrCeilings : int
+    + {static} _totalRoofs : int
+    + {static} _totalGrounds : int
+    {static} Face()
+    + {static} InitTotalFace() : void
+    + Face(parent:Room, geometry:Surface, normal:Vector3d, tempNormal:Vector3d)
+    + filterByBc(bc:BoundaryCondition) : bool
+    + filterByDirection(direction:Direction) : bool
+    + filterBySurfaceType(surfT:SurfaceType) : bool
+    - defineDirection(normal:Vector3d) : Direction
+    + getFaceType(normal:Vector3d) : SurfaceType
+    + addWindows(window:Window) : void
+    + setPartId() : void
+    + setElementType() : void
+    + setConstructionId(envelope:Envelope) : void
+    + OverrideConstruction(construction:Construction) : void
+    + <<override>> ToString() : string
+    + {static} GetFaceIds(faces:List<Face>) : List<int>
+}
+class "List`1"<T> {
+}
+BaseFace <|-- Face
+Face --> "surfaceType" SurfaceType
+Face --> "bc" BoundaryCondition
+Face --> "elementType" ElementType
+Face --> "parent" Room
+Face --> "tempNormal" Vector3d
+Face --> "direction" Direction
+Face --> "windows<Window>" "List`1"
+Face --> "windowIds<int>" "List`1"
+Face --> "adjacencyFace" Face
+class Overhang {
+    + parentWindowId : int
+    + {static} _totalOverhangs : int
+    {static} Overhang()
+    + Overhang(geometry:Surface)
+    + addParentFace(parentFace:Face) : void
+    + addParentWindow(parentWindow:Window) : void
+    + <<override>> ToString() : string
+}
+BaseFace <|-- Overhang
+Overhang --> "parentFace" Face
+Overhang --> "parentWindow" Window
+class Room {
+    + {static} _totalRooms : int
+    + volume : double
+    {static} Room()
+    + {static} InitTotalRoom() : void
+    + Room(geometry:Brep)
+    + addFace(face:Face) : void
+    + groupChildFaces(face:Face) : void
+    + getDirectionList() : List<int>
+    + getFaces() : List<Face>
+    + <<override>> ToString() : string
+    + CheckRoom() : RoomStatus
+    + Transform(transform:Transform) : void
+}
+class "List`1"<T> {
+}
+enum RoomStatus {
+    OnGround,
+    Floating,
+    Buried,
+    InGround,
+}
+BaseGeo <|-- Room
+Room --> "geometry" Brep
+Room --> "centroid" Point3d
+Room --> "_faceList<Face>" "List`1"
+Room --> "vertices" BrepVertexList
+Room --> "sWalls<Face>" "List`1"
+Room --> "wWalls<Face>" "List`1"
+Room --> "nWalls<Face>" "List`1"
+Room --> "eWalls<Face>" "List`1"
+Room --> "floors<Face>" "List`1"
+Room --> "roofs<Face>" "List`1"
+Room +-- RoomStatus
+class AreaData {
+    + exteriorWall : double
+    + interiorWall : double
+    + exteriorFloor : double
+    + interiorFloor : double
+    + interiorRoof : double
+    + exteriorRoof : double
+    + interiorCeiling : double
+    + exteriorCeiling : double
+    + groundFloor : double
+    + groundRoof : double
+    + groundWall : double
+    + groundCeiling : double
+    + window : double
+    + skylight : double
+}
+class SendData {
+    + envelope_id : string
+}
+class Therb {
+    <<const>> GEOM_DATA_POST_URL : string = "https://oyster-app-8jboe.ondigitalocean.app/geometry/"
+    + Therb(rooms:List<Room>, faces:List<Face>, windows:List<Window>, overhangs:List<Overhang>)
+    + CheckTherb(messages:List<string>) : void
+    + TransformForTherbAnarysis() : void
+    + TryCalcTotalArea() : bool
+    + PostArea(urlAddNum:string, envelope:Envelope) : void
+}
+class "List`1"<T> {
+}
+class "Dictionary`2"<T1,T2> {
+}
+SendData --> "area" AreaData
+Therb --> "rooms<Room>" "List`1"
+Therb --> "faces<Face>" "List`1"
+Therb --> "windows<Window>" "List`1"
+Therb --> "overhangs<Overhang>" "List`1"
+Therb o-> "TotalAreaForElementType<ElementTypeForTotalArea,double>" "Dictionary`2"
+class Window {
+    + {static} _totalWindows : int
+    {static} Window()
+    + {static} InitTotalWindow() : void
+    + Window(geometry:Surface, envelope:Envelope)
+    + addParent(parent:Face) : void
+    + <<override>> ToString() : string
+}
+BaseFace <|-- Window
+Window --> "parent" Face
+class ExportA {
+    + ExportA()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- ExportA
+ExportA --> "ComponentGuid" Guid
+class ExportB {
+    + ExportB()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- ExportB
+ExportB --> "ComponentGuid" Guid
+class ExportR {
+    + ExportR()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- ExportR
+ExportR --> "ComponentGuid" Guid
+class ExportS {
+    + ExportS()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- ExportS
+ExportS --> "ComponentGuid" Guid
+class ExportT {
+    + ExportT()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- ExportT
+ExportT --> "ComponentGuid" Guid
+class ExportW {
+    + ExportW()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- ExportW
+ExportW --> "ComponentGuid" Guid
+class FilterConstruction {
+    + FilterConstruction()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- FilterConstruction
+FilterConstruction --> "ComponentGuid" Guid
+class FilterFaceByProperty {
+    + FilterFaceByProperty()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- FilterFaceByProperty
+FilterFaceByProperty --> "ComponentGuid" Guid
+class ReadConstruction {
+    <<const>> OPAQUE_URL : string = "https://stingray-app-vgak2.ondigitalocean.app/constructions"
+    <<const>> TRANSLUCENT_URL : string = "https://stingray-app-vgak2.ondigitalocean.app/windows"
+    + ReadConstruction()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- ReadConstruction
+ReadConstruction --> "ComponentGuid" Guid
+class ReadEnvelope {
+    <<const>> ENVELOPE_URL : string = "https://stingray-app-vgak2.ondigitalocean.app/envelopes"
+    <<const>> OPAQUE_URL : string = "https://stingray-app-vgak2.ondigitalocean.app/constructions"
+    + ReadEnvelope()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- ReadEnvelope
+ReadEnvelope --> "ComponentGuid" Guid
+enum VisualizeType {
+    partId,
+    elementType,
+    structureId,
+    direction,
+    None,
+}
+class ReadFaceProperty {
+    + ReadFaceProperty()
+    <<const>> FONT_SIZE_NAME : string = "fontsize"
+    <<const>> DEFALT_FONT_SIZE : int = 12
+    - _fontsize : int
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+    # <<override>> AppendAdditionalComponentMenuItems(menu:ToolStripDropDown) : void
+    # Menu_TextBoxChanged(sender:GH_MenuTextBox, newText:string) : void
+    + <<override>> Write(writer:GH_IWriter) : bool
+    + <<override>> Read(reader:GH_IReader) : bool
+    + <<override>> DrawViewportWires(args:IGH_PreviewArgs) : void
+}
+class "List`1"<T> {
+}
+GH_Component <|-- ReadFaceProperty
+ReadFaceProperty --> "_faces<Face>" "List`1"
+ReadFaceProperty --> "_visualizeType" VisualizeType
+ReadFaceProperty --> "ComponentGuid" Guid
+class ReadRoomProperty {
+    + ReadRoomProperty()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- ReadRoomProperty
+ReadRoomProperty --> "ComponentGuid" Guid
+class ReadSchedule {
+    <<const>> SCHEDULE_URL : string = "https://stingray-app-vgak2.ondigitalocean.app/schedules"
+    + ReadSchedule()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- ReadSchedule
+ReadSchedule --> "ComponentGuid" Guid
+class UpdateConstruction {
+    + UpdateConstruction()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- UpdateConstruction
+UpdateConstruction --> "ComponentGuid" Guid
+class UpdateSetting {
+    + UpdateSetting()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- UpdateSetting
+UpdateSetting --> "ComponentGuid" Guid
+class UploadResult {
+    <<const>> UPLOAD_FILE_O : string = "o.dat"
+    <<const>> MAX_SERVER_TRY_COUNT : int = 6
+    POST_URL : string = "https://oyster-app-8jboe.ondigitalocean.app/therb/result"
+    + UploadResult()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+class ResponseContent {
+    + message : string
+    + status : string
+}
+class Data {
+    + api : string
+    + project_id : string
+    + url : string
+}
+GH_Component <|-- UploadResult
+UploadResult --> "ComponentGuid" Guid
+ResponseContent --> "data" Data
+ResponseContent +-- Data
+@enduml

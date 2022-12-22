@@ -1,0 +1,130 @@
+@startuml
+class CreateDatData {
+    + {static} CreateADat(therb:Therb, ach:double) : string
+    + {static} CreateBDat(therb:Therb) : string
+    + {static} CreateRDat(therb:Therb) : string
+    + {static} CreateWDat(constructions:List<Construction>) : string
+    + {static} CreateSDat(schedule:Schedule, rooms:List<Room>) : string
+    + {static} CreateTDat(startMonth:int, EndMonth:int, northDirection:Vector3d) : string
+    - {static} FillSchedule(schedule:List<int>, eachLength:int) : string
+    - {static} FillSchedule(schedule:List<int>, eachLength:int, digit:int) : string
+    - {static} FillMultipleZeros(repeatNum:int, totalLength:int, digit:int) : string
+    - {static} OutputWindowIds(face:Face) : string
+    - {static} CavityLayers(numMaterials:int, cavityLayer:int, glassNumber:double, cavityNumber:double, digit:int) : string
+    - {static} NorthDegree(north:Vector3d) : double
+}
+class Setting {
+    + startMonth : int
+    + endMonth : int
+    + ventilationRate : double
+    + Setting()
+    + Setting(northDirection:Vector3d, startMonth:int, endMonth:int, ventilationRate:double)
+}
+class ResEnvelope {
+}
+class EnvelopePayload {
+    + name : string
+    + id : string
+}
+class Envelope {
+    + name : string
+    + id : string
+    + exteriorWallId : int
+    + interiorWallId : int
+    + floorCeilingId : int
+    + groundFloorId : int
+    + roofId : int
+    + windowId : int
+    + Envelope()
+    + Envelope(payload:EnvelopePayload, count:int)
+    + Envelope(exWallId:int, inWallId:int, floorCeilId:int, exRoofId:int, groundFlrId:int, windowCntId:int)
+    + <<override>> ToString() : string
+}
+class ResSchedule {
+}
+class Schedule {
+    + name : string
+    + description : string
+    + <<override>> ToString() : string
+}
+class WeeklySch {
+}
+class MonthlySch {
+}
+class DailySch {
+}
+class ResConstruction {
+}
+class ResTranslucent {
+}
+class TranslucentPayload {
+    + id : string
+}
+class Translucent {
+    + id : string
+    + Translucent()
+    + Translucent(translucent:TranslucentPayload, count:int)
+}
+class ResOpaque {
+}
+class Opaque {
+    + id : string
+}
+class Construction {
+    + id : string
+    + Construction()
+    + Construction(opaque:Opaque)
+    + Construction(traslucent:Translucent)
+    + <<override>> ToString() : string
+    + filterByCategory(category:ElementType) : bool
+}
+class Material {
+    + id : string
+    + name : string
+    + conductivity : double
+    + density : double
+    + specificHeat : double
+    + classification : int
+    + {static} GetNames(materials:List<Material>) : List<string>
+}
+class "List`1"<T> {
+}
+Setting --> "northDirection" Vector3d
+ResEnvelope --> "data<EnvelopePayload>" "List`1"
+EnvelopePayload --> "exteriorWall" Opaque
+EnvelopePayload --> "interiorWall" Opaque
+EnvelopePayload --> "floorCeiling" Opaque
+EnvelopePayload --> "groundFloor" Opaque
+EnvelopePayload --> "roof" Opaque
+EnvelopePayload --> "window" Translucent
+Envelope --> "exteriorWall" Opaque
+Envelope --> "interiorWall" Opaque
+Envelope --> "floorCeiling" Opaque
+Envelope --> "groundFloor" Opaque
+Envelope --> "roof" Opaque
+Envelope --> "window" Translucent
+ResSchedule --> "data<Schedule>" "List`1"
+Schedule --> "monthly" MonthlySch
+Schedule --> "weekly" WeeklySch
+Schedule --> "daily" DailySch
+WeeklySch --> "hvac<int>" "List`1"
+MonthlySch --> "hvac<int>" "List`1"
+DailySch --> "hvac<int>" "List`1"
+DailySch --> "heating<int>" "List`1"
+DailySch --> "cooling<int>" "List`1"
+ResConstruction --> "data<Construction>" "List`1"
+ResTranslucent --> "data<TranslucentPayload>" "List`1"
+TranslucentPayload --> "categories" ElementType
+TranslucentPayload --> "materials<Material>" "List`1"
+TranslucentPayload --> "thickness<Double>" "List`1"
+Translucent --> "categories" ElementType
+Translucent --> "materials<Material>" "List`1"
+Translucent --> "thickness<Double>" "List`1"
+ResOpaque --> "data<Opaque>" "List`1"
+Opaque --> "categories" ElementType
+Opaque --> "materials<Material>" "List`1"
+Opaque --> "thickness<Double>" "List`1"
+Construction --> "categories" ElementType
+Construction --> "materials<Material>" "List`1"
+Construction --> "thickness<Double>" "List`1"
+@enduml

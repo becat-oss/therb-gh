@@ -1,0 +1,39 @@
+@startuml
+class AreaData {
+    + exteriorWall : double
+    + interiorWall : double
+    + exteriorFloor : double
+    + interiorFloor : double
+    + interiorRoof : double
+    + exteriorRoof : double
+    + interiorCeiling : double
+    + exteriorCeiling : double
+    + groundFloor : double
+    + groundRoof : double
+    + groundWall : double
+    + groundCeiling : double
+    + window : double
+    + skylight : double
+}
+class SendData {
+    + envelope_id : string
+}
+class Therb {
+    <<const>> GEOM_DATA_POST_URL : string = "https://oyster-app-8jboe.ondigitalocean.app/geometry/"
+    + Therb(rooms:List<Room>, faces:List<Face>, windows:List<Window>, overhangs:List<Overhang>)
+    + CheckTherb(messages:List<string>) : void
+    + TransformForTherbAnarysis() : void
+    + TryCalcTotalArea() : bool
+    + PostArea(urlAddNum:string, envelope:Envelope) : void
+}
+class "List`1"<T> {
+}
+class "Dictionary`2"<T1,T2> {
+}
+SendData --> "area" AreaData
+Therb --> "rooms<Room>" "List`1"
+Therb --> "faces<Face>" "List`1"
+Therb --> "windows<Window>" "List`1"
+Therb --> "overhangs<Overhang>" "List`1"
+Therb o-> "TotalAreaForElementType<ElementTypeForTotalArea,double>" "Dictionary`2"
+@enduml

@@ -1,0 +1,10 @@
+@startuml
+class ExportA {
+    + ExportA()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- ExportA
+ExportA --> "ComponentGuid" Guid
+@enduml

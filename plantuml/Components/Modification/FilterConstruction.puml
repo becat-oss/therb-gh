@@ -1,0 +1,10 @@
+@startuml
+class FilterConstruction {
+    + FilterConstruction()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- FilterConstruction
+FilterConstruction --> "ComponentGuid" Guid
+@enduml

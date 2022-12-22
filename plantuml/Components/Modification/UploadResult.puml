@@ -1,0 +1,24 @@
+@startuml
+class UploadResult {
+    <<const>> UPLOAD_FILE_O : string = "o.dat"
+    <<const>> MAX_SERVER_TRY_COUNT : int = 6
+    POST_URL : string = "https://oyster-app-8jboe.ondigitalocean.app/therb/result"
+    + UploadResult()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+class ResponseContent {
+    + message : string
+    + status : string
+}
+class Data {
+    + api : string
+    + project_id : string
+    + url : string
+}
+GH_Component <|-- UploadResult
+UploadResult --> "ComponentGuid" Guid
+ResponseContent --> "data" Data
+ResponseContent +-- Data
+@enduml
