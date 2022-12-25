@@ -1,0 +1,10 @@
+@startuml
+class UpdateSetting {
+    + UpdateSetting()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- UpdateSetting
+UpdateSetting --> "ComponentGuid" Guid
+@enduml

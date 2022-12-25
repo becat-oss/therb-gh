@@ -1,0 +1,14 @@
+@startuml
+class Overhang {
+    + parentWindowId : int
+    + {static} _totalOverhangs : int
+    {static} Overhang()
+    + Overhang(geometry:Surface)
+    + addParentFace(parentFace:Face) : void
+    + addParentWindow(parentWindow:Window) : void
+    + <<override>> ToString() : string
+}
+BaseFace <|-- Overhang
+Overhang --> "parentFace" Face
+Overhang --> "parentWindow" Window
+@enduml

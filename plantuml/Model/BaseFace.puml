@@ -1,0 +1,37 @@
+@startuml
+enum ElementTypeForTotalArea {
+    exteriorWall,
+    interiorWall,
+    exteriorFloor,
+    interiorFloor,
+    interiorRoof,
+    exteriorRoof,
+    interiorCeiling,
+    exteriorCeiling,
+    groundFloor,
+    groundRoof,
+    groundWall,
+    groundCeiling,
+    window,
+    skylight,
+}
+class BaseFace {
+    + parentId : int
+    + partId : int
+    + tiltAngle : double
+    + area : double
+    + constructionId : int
+    + structureId : int
+    + overhangId : int
+    + BaseFace(geometry:Surface)
+    + addOverhangs(overhang:Overhang) : void
+    + Transform(transform:Transform) : void
+    + {static} ToElementTypeForTotalArea(elementType:ElementType) : ElementTypeForTotalArea
+}
+BaseGeo <|-- BaseFace
+BaseFace --> "geometry" Surface
+BaseFace --> "normal" Vector3d
+BaseFace --> "centerPt" Point3d
+BaseFace --> "vertices" BrepVertexList
+BaseFace --> "overhang" Overhang
+@enduml

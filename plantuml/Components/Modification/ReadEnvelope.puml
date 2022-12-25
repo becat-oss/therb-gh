@@ -1,0 +1,12 @@
+@startuml
+class ReadEnvelope {
+    <<const>> ENVELOPE_URL : string = "https://stingray-app-vgak2.ondigitalocean.app/envelopes"
+    <<const>> OPAQUE_URL : string = "https://stingray-app-vgak2.ondigitalocean.app/constructions"
+    + ReadEnvelope()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- ReadEnvelope
+ReadEnvelope --> "ComponentGuid" Guid
+@enduml

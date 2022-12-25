@@ -1,0 +1,5 @@
+@startuml
+class ThrebUtilsTest <<static>> {
+    + {static} ExBoxTest() : void
+}
+@enduml

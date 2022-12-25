@@ -1,0 +1,7 @@
+@startuml
+class Converter {
+    + {static} FillEmpty(input:int, totalLength:int) : string
+    + {static} FillEmpty(input:string, totalLength:int) : string
+    + {static} FillEmpty(input:double, totalLength:int, digit:int) : string
+}
+@enduml

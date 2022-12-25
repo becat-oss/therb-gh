@@ -1,0 +1,12 @@
+@startuml
+class Window {
+    + {static} _totalWindows : int
+    {static} Window()
+    + {static} InitTotalWindow() : void
+    + Window(geometry:Surface, envelope:Envelope)
+    + addParent(parent:Face) : void
+    + <<override>> ToString() : string
+}
+BaseFace <|-- Window
+Window --> "parent" Face
+@enduml

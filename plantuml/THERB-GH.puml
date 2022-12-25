@@ -1,0 +1,11 @@
+@startuml
+class THERBghInfo {
+    + <<override>> Name : string <<get>>
+    + <<override>> Description : string <<get>>
+    + <<override>> AuthorName : string <<get>>
+    + <<override>> AuthorContact : string <<get>>
+}
+GH_AssemblyInfo <|-- THERBghInfo
+THERBghInfo --> "Icon" Bitmap
+THERBghInfo --> "Id" Guid
+@enduml

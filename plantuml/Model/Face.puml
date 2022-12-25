@@ -1,0 +1,78 @@
+@startuml
+enum BoundaryCondition {
+    exterior,
+    interior,
+    ground,
+}
+enum SurfaceType {
+    Wall,
+    Roof,
+    Ceiling,
+    Floor,
+}
+enum ElementType {
+    exteriorWall,
+    interiorWall,
+    exteriorFloor,
+    interiorFloor,
+    interiorRoof,
+    exteriorRoof,
+    interiorCeiling,
+    exteriorCeiling,
+    groundFloor,
+    groundRoof,
+    groundWall,
+    groundCeiling,
+    window,
+}
+enum FaceKeys {
+    bc,
+    elementType,
+    direction,
+}
+enum Direction {
+    N,
+    S,
+    W,
+    E,
+    F,
+    CR,
+}
+class Face {
+    + adjacencyRoomId : int
+    + unique : bool
+    + {static} _totalFaces : int
+    + {static} _totalExWalls : int
+    + {static} _totalInWalls : int
+    + {static} _totalFlrCeilings : int
+    + {static} _totalRoofs : int
+    + {static} _totalGrounds : int
+    {static} Face()
+    + {static} InitTotalFace() : void
+    + Face(parent:Room, geometry:Surface, normal:Vector3d, tempNormal:Vector3d)
+    + filterByBc(bc:BoundaryCondition) : bool
+    + filterByDirection(direction:Direction) : bool
+    + filterBySurfaceType(surfT:SurfaceType) : bool
+    - defineDirection(normal:Vector3d) : Direction
+    + getFaceType(normal:Vector3d) : SurfaceType
+    + addWindows(window:Window) : void
+    + setPartId() : void
+    + setElementType() : void
+    + setConstructionId(envelope:Envelope) : void
+    + OverrideConstruction(construction:Construction) : void
+    + <<override>> ToString() : string
+    + {static} GetFaceIds(faces:List<Face>) : List<int>
+}
+class "List`1"<T> {
+}
+BaseFace <|-- Face
+Face --> "surfaceType" SurfaceType
+Face --> "bc" BoundaryCondition
+Face --> "elementType" ElementType
+Face --> "parent" Room
+Face --> "tempNormal" Vector3d
+Face --> "direction" Direction
+Face --> "windows<Window>" "List`1"
+Face --> "windowIds<int>" "List`1"
+Face --> "adjacencyFace" Face
+@enduml

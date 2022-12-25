@@ -1,0 +1,11 @@
+@startuml
+class BaseGeo {
+    + id : int
+    + displayName : string
+    + getMinCoord(vertices:BrepVertexList) : Point3d
+    + getMaxCoord(vertices:BrepVertexList) : Point3d
+}
+BaseGeo --> "guid" Guid
+BaseGeo --> "minPt" Point3d
+BaseGeo --> "maxPt" Point3d
+@enduml

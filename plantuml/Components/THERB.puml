@@ -1,0 +1,47 @@
+@startuml
+class THERB {
+    + THERB()
+    <<const>> FONT_SIZE_NAME : string = "fontsize"
+    <<const>> DEFALT_FONT_SIZE : int = 12
+    - _fontsize : int
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+    - SplitGeometry(breps:List<Brep>, tol:double) : List<Brep>
+    - windowOnFace(faceList:List<Face>, windows:List<Surface>, tol:double, messages:List<string>) : List<Window>
+    - overhangOnWindow(windowList:List<Window>, overhangs:List<Surface>) : List<Overhang>
+    - solveBoundary(faceList:List<Face>, tol:double) : List<Face>
+    - shootIt(ray:Ray3d, srfs:List<Surface>, tol:double, bounce:int) : bool
+    - getClosestFaceFromFace(originFace:Face, faces:List<Face>) : Face
+    - reviseNormal(srf:Surface, parent:Room) : Vector3d
+    # <<override>> AppendAdditionalComponentMenuItems(menu:ToolStripDropDown) : void
+    # Menu_TextBoxChanged(sender:GH_MenuTextBox, newText:string) : void
+    + <<override>> Write(writer:GH_IWriter) : bool
+    + <<override>> Read(reader:GH_IReader) : bool
+    + <<override>> DrawViewportWires(args:IGH_PreviewArgs) : void
+}
+class ExBox {
+    + <<const>> STRIC_TOL : double = 1e-9
+    + ExBox(box:Box)
+    + {static} SplitGeometry(boxes:List<Box>, tol:double) : List<ExBox>
+    - {static} IsSamePlane(box1:Box, box2:Box) : bool
+    - {static} IsOnPlane(plane:Plane, point:Point3d) : bool
+    - {static} IsParallel(vec1:Vector3d, vec2:Vector3d) : bool
+    - {static} SplitSurface(curSurfs:List<Surface>, otherSurfs:List<Surface>) : List<Surface>
+    - {static} TrySplit(surface:Surface, point:Point3d, results:List<Surface>) : bool
+}
+enum StateSurfPoint {
+    Unknown,
+    OnFace,
+    NotOnFace,
+}
+class "List`1"<T> {
+}
+GH_Component <|-- THERB
+THERB --> "envelope" Envelope
+THERB --> "_therb" Therb
+THERB --> "ComponentGuid" Guid
+ExBox --> "Box" Box
+ExBox --> "BoxSurfaces<Surface>" "List`1"
+THERB +-- StateSurfPoint
+@enduml

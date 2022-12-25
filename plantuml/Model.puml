@@ -1,0 +1,142 @@
+@startuml
+enum BoundaryCondition {
+    Outdoors,
+    Surface,
+    Ground,
+}
+enum SurfaceType {
+    Wall,
+    Roof,
+    Ceiling,
+    Floor,
+}
+class Baues {
+    + Baues(zones:List<Zone>)
+}
+class Zone {
+    + name : string
+    + multiplier : int
+    + roomId : int
+    + Zone(room:Room)
+    + addSurface(surface:SurfaceDetailed) : void
+}
+class BaseBaues {
+    + name : string
+    + constructionName : string
+    + getBauesVertices(vertices:BrepVertexList) : List<double>
+}
+class SurfaceDetailed {
+    + faceId : int
+    + surfaceTypeId : int
+    + boundaryConditionObject : string
+    + {static} _totalWalls : int
+    + {static} _totalRoofs : int
+    + {static} _totalCeilings : int
+    + {static} _totalFloors : int
+    {static} SurfaceDetailed()
+    + SurfaceDetailed(face:Face)
+    + addFenestration(fenestration:FenestrationDetailed) : void
+}
+class FenestrationDetailed {
+    + windowId : int
+    + {static} _totalFenestrations : int
+    {static} FenestrationDetailed()
+    + FenestrationDetailed(window:Window)
+}
+class BaseGeo {
+    + id : int
+    + displayName : string
+}
+class Therb {
+    + Therb(rooms:List<Room>, faces:List<Face>, windows:List<Window>)
+}
+class Room {
+    + {static} _totalRooms : int
+    {static} Room()
+    + initRoom() : void
+    + Room(geometry:Brep)
+    + addFace(face:Face) : void
+    + groupChildFaces(face:Face) : void
+    + getDirectionList() : List<int>
+    + getFaces() : List<Face>
+    - getMinCoord(vertices:BrepVertexList) : Point3d
+    - getMaxCoord(vertices:BrepVertexList) : Point3d
+}
+class BaseFace {
+    + parentId : int
+    + tiltAngle : double
+    + area : double
+    + constructionId : int
+    + BaseFace(geometry:Surface)
+}
+class Face {
+    + partId : int
+    + face : string <<get>>
+    + bc : string <<get>> <<set>>
+    + elementType : string <<get>> <<set>>
+    + direction : string
+    + adjacencyRoomId : int
+    + {static} _totalFaces : int
+    + {static} _totalExWalls : int
+    + {static} _totalInWalls : int
+    + {static} _totalFlrCeilings : int
+    + {static} _totalRoofs : int
+    + {static} _totalGrounds : int
+    {static} Face()
+    + initFace() : void
+    + Face(parent:Room, geometry:Surface, normal:Vector3d, tempNormal:Vector3d)
+    - defineDirection(normal:Vector3d) : string
+    + getFaceType(normal:Vector3d) : string
+    + addWindows(window:Window) : void
+    + setElementType() : void
+    + setConstructionId() : void
+}
+class Window {
+    + {static} _totalWindows : int
+    {static} Window()
+    + initWindow() : void
+    + Window(geometry:Surface)
+    + addParent(parent:Face) : void
+}
+class "List`1"<T> {
+}
+Baues --> "zones<Zone>" "List`1"
+Zone --> "surfaces<SurfaceDetailed>" "List`1"
+BaseBaues --> "vertices<double>" "List`1"
+BaseBaues <|-- SurfaceDetailed
+SurfaceDetailed --> "surfaceType" SurfaceType
+SurfaceDetailed --> "boundaryCondition" BoundaryCondition
+SurfaceDetailed --> "fenestrations<FenestrationDetailed>" "List`1"
+BaseBaues <|-- FenestrationDetailed
+BaseGeo --> "guid" Guid
+Therb --> "rooms<Room>" "List`1"
+Therb --> "faces<Face>" "List`1"
+Therb --> "windows<Window>" "List`1"
+BaseGeo <|-- Room
+Room --> "geometry" Brep
+Room --> "centroid" Point3d
+Room --> "_faceList<Face>" "List`1"
+Room --> "vertices" BrepVertexList
+Room --> "minPt" Point3d
+Room --> "maxPt" Point3d
+Room --> "sWalls<Face>" "List`1"
+Room --> "wWalls<Face>" "List`1"
+Room --> "nWalls<Face>" "List`1"
+Room --> "eWalls<Face>" "List`1"
+Room --> "floors<Face>" "List`1"
+Room --> "roofs<Face>" "List`1"
+BaseGeo <|-- BaseFace
+BaseFace --> "geometry" Surface
+BaseFace --> "normal" Vector3d
+BaseFace --> "centerPt" Point3d
+BaseFace --> "vertices" BrepVertexList
+BaseFace <|-- Face
+Face --> "parent" Room
+Face --> "tempNormal" Vector3d
+Face --> "windows<Window>" "List`1"
+Face --> "windowIds<int>" "List`1"
+Face --> "bauesBC" BoundaryCondition
+Face --> "adjacencyFace" Face
+BaseFace <|-- Window
+Window --> "parent" Face
+@enduml

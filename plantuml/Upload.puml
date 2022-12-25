@@ -1,0 +1,15 @@
+@startuml
+class THERB {
+    + THERB()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+    - windowOnFace(faceList:List<Face>, windows:List<Surface>, zoneList:List<Zone>) : List<Window>
+    - solveBoundary(faceList:List<Face>, tol:double, zoneList:List<Zone>) : List<Face>
+    - shootIt(ray:Ray3d, srfs:List<Surface>, tol:double, bounce:int) : bool
+    - getClosestFaceFromFace(originFace:Face, faces:List<Face>) : Face
+    - reviseNormal(srf:Surface, parent:Room) : Vector3d
+}
+GH_Component <|-- THERB
+THERB --> "ComponentGuid" Guid
+@enduml

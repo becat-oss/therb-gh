@@ -1,0 +1,36 @@
+@startuml
+class Room {
+    + {static} _totalRooms : int
+    + volume : double
+    {static} Room()
+    + {static} InitTotalRoom() : void
+    + Room(geometry:Brep)
+    + addFace(face:Face) : void
+    + groupChildFaces(face:Face) : void
+    + getDirectionList() : List<int>
+    + getFaces() : List<Face>
+    + <<override>> ToString() : string
+    + CheckRoom() : RoomStatus
+    + Transform(transform:Transform) : void
+}
+class "List`1"<T> {
+}
+enum RoomStatus {
+    OnGround,
+    Floating,
+    Buried,
+    InGround,
+}
+BaseGeo <|-- Room
+Room --> "geometry" Brep
+Room --> "centroid" Point3d
+Room --> "_faceList<Face>" "List`1"
+Room --> "vertices" BrepVertexList
+Room --> "sWalls<Face>" "List`1"
+Room --> "wWalls<Face>" "List`1"
+Room --> "nWalls<Face>" "List`1"
+Room --> "eWalls<Face>" "List`1"
+Room --> "floors<Face>" "List`1"
+Room --> "roofs<Face>" "List`1"
+Room +-- RoomStatus
+@enduml

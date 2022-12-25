@@ -1,0 +1,20 @@
+@startuml
+class RunSimulation {
+    <<const>> THERB_FILE_NAME : string = "Therb.exe"
+    <<const>> THERB_FOLDER_PATH : string = @"C:\therb"
+    <<const>> CREATE_FILE_B : string = "b.dat"
+    <<const>> CREATE_FILE_R : string = "r.dat"
+    <<const>> CREATE_FILE_T : string = "t.dat"
+    <<const>> CREATE_FILE_W : string = "w.dat"
+    <<const>> CREATE_FILE_A : string = "a.dat"
+    <<const>> CREATE_FILE_S : string = "s.dat"
+    <<const>> CREATED_FILE_O : string = "o.dat"
+    <<const>> MAX_SERVER_TRY_COUNT : int = 6
+    + RunSimulation()
+    # <<override>> RegisterInputParams(pManager:GH_Component.GH_InputParamManager) : void
+    # <<override>> RegisterOutputParams(pManager:GH_Component.GH_OutputParamManager) : void
+    # <<override>> SolveInstance(DA:IGH_DataAccess) : void
+}
+GH_Component <|-- RunSimulation
+RunSimulation --> "ComponentGuid" Guid
+@enduml
