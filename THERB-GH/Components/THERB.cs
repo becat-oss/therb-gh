@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Grasshopper.GUI;
 using GH_IO.Serialization;
+using System.Linq;
 
 // In order to load the result of this wizard, you will also need to
 // add the output bin/ folder of this project to the list of loaded
@@ -127,6 +128,11 @@ namespace THERBgh
             //windowがどのwallの上にあるかどうかを判断するロジック
             var messages = new List<string>();
             List<Window> windowList = windowOnFace(faceListBC, windows, tol, ref messages);
+            foreach(Window window in windowList)
+            {
+                if (window.parent == null)
+                    messages.Add("親のいない窓があります。window_id : " + window.id);
+            }
             foreach (var message in messages)
                 this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, message);
             Window.InitTotalWindow();
@@ -227,7 +233,7 @@ namespace THERBgh
                                 if (state == StateSurfPoint.NotOnFace)
                                 {
                                     state = StateSurfPoint.NotOnFace;
-                                    messages.Add("壁端に窓が配置されています。");
+                                    messages.Add("壁端に窓が配置されています。window_id : " + window.id);
                                     break;
                                 }
                                 state = StateSurfPoint.OnFace;
@@ -237,13 +243,13 @@ namespace THERBgh
                                 if (state == StateSurfPoint.OnFace)
                                 {
                                     state = StateSurfPoint.NotOnFace;
-                                    messages.Add("壁端に窓が配置されています。");
+                                    messages.Add("壁端に窓が配置されています。wall_idwindow_id : " + window.id);
                                     break;
                                 }
                                 state = StateSurfPoint.NotOnFace;
                             }
                         }
-                        else throw new Exception("壁-窓判定ができませんでした。");
+                        else throw new Exception($"壁-窓判定ができませんでした。face_id : {exFace.id} window_id : " + window.id);
 
                     }
                     if (state == StateSurfPoint.OnFace)
