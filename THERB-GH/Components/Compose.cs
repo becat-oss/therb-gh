@@ -39,6 +39,10 @@ namespace THERBgh
             pManager.AddGenericParameter("Faces", "Faces", "Face classes", GH_ParamAccess.list);
             pManager.AddGenericParameter("Windows", "Windows", "Window classes", GH_ParamAccess.list);
             pManager.AddGenericParameter("Overhangs", "Overhangs", "Overhang classes", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Envelope", "Envelope", "Envelope class", GH_ParamAccess.item); //Envelopeのinputをoptionalにしたい
+            pManager[2].Optional = true;
+            pManager[3].Optional = true;
+            pManager[4].Optional = true;
         }
 
         /// <summary>
@@ -64,8 +68,10 @@ namespace THERBgh
             DA.GetDataList(2, windowList);
             List<Overhang> overhangList = new List<Overhang>();
             DA.GetDataList(3, overhangList);
+            Envelope envelope = new Envelope();
+            DA.GetData(4, ref envelope);
 
-            Therb therb = new Therb(roomList, faceList, windowList, overhangList);
+            Therb therb = new Therb(roomList, faceList, windowList, overhangList, envelope);
 
             DA.SetData("Therb",therb);
         }
