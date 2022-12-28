@@ -401,6 +401,10 @@ namespace THERBgh
                 DA.SetData("o_dat_file_path", path);
 
             }
+            MessageBox.Show("以下の計算条件でシミュレーションを行いました。" + Environment.NewLine +
+                $"気象データ：Fukuoka" + Environment.NewLine +
+                $"Envelope : {therb.envelope.name}" + Environment.NewLine +
+                $"Schedule : {schedule.name}");
         }
 
 

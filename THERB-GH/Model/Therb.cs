@@ -52,12 +52,15 @@ namespace Model
             = new Dictionary<ElementTypeForTotalArea, double>();
         //shadingとかものちのちつけていく
 
-        public Therb(List<Room> rooms, List<Face> faces, List<Window> windows, List<Overhang> overhangs)
+        public Envelope envelope;
+
+        public Therb(List<Room> rooms, List<Face> faces, List<Window> windows, List<Overhang> overhangs, Envelope envelope)
         {
             this.rooms = rooms;
             this.faces = faces;
             this.windows = windows;
             this.overhangs = overhangs;
+            this.envelope = envelope;
         }
 
         public void CheckTherb(out List<string> messages)
