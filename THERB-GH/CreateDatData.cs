@@ -14,7 +14,7 @@ namespace THERBgh
 {
     public class CreateDatData
     {
-        public static string CreateADat(Therb therb,double ach)
+        public static string CreateADat(Therb therb, double ach)
         {
 
             List<Room> roomList = therb.rooms;
@@ -26,12 +26,12 @@ namespace THERBgh
                     + "=>  \r\n"
                     + Converter.FillEmpty("from outdoor=0", 25)
                     + Converter.FillEmpty("- ", 6)
-                    + string.Join("", Enumerable.Repeat(Converter.FillEmpty(room.volume*ach, 7, 1), 12)) + "\r\n" 
+                    + string.Join("", Enumerable.Repeat(Converter.FillEmpty(room.volume * ach, 7, 1), 12)) + "\r\n"
                     + Converter.FillEmpty("quantity (m3/h)", 25)
                     + Converter.FillEmpty("- ", 6) + "\r\n"
                     + Converter.FillEmpty("(-1.:natural vent.)", 25)
-                    + Converter.FillEmpty("- ", 6) 
-                    + string.Join("", Enumerable.Repeat(Converter.FillEmpty(room.volume*ach, 7, 1), 12)) + "\r\n" + "\r\n"; 
+                    + Converter.FillEmpty("- ", 6)
+                    + string.Join("", Enumerable.Repeat(Converter.FillEmpty(room.volume * ach, 7, 1), 12)) + "\r\n" + "\r\n";
             });
 
             return aDat;
@@ -314,7 +314,7 @@ namespace THERBgh
                         id += 1;
 
                         //TODO:窓に関する処理を追加
-                        
+
                         face.windows.ForEach(window =>
                         {
                             rDat += Converter.FillEmpty(room.id, 5)
@@ -392,13 +392,13 @@ namespace THERBgh
                         window = true;
                     }
 
-                    if (material.classification == 3 || material.classification == 4|| material.classification == 5)
+                    if (material.classification == 3 || material.classification == 4 || material.classification == 5)
                     {
                         cavityLayer = i;
                     }
-                    
+
                 });
-                wDat += FillMultipleZeros(13-numMaterials,10,0);
+                wDat += FillMultipleZeros(13 - numMaterials, 10, 0);
                 wDat += " \r\n";
 
                 //3行目入力 分割数
@@ -413,9 +413,9 @@ namespace THERBgh
                     {
                         wDat += Converter.FillEmpty(1, 10);
                     }
-                    
+
                 });
-                wDat += FillMultipleZeros(13 - numMaterials, 10,0);
+                wDat += FillMultipleZeros(13 - numMaterials, 10, 0);
                 wDat += " \r\n";
 
                 //4行目入力 厚み
@@ -429,16 +429,16 @@ namespace THERBgh
                         ceiledThickness = 0.001;
                     }
 
-                    
+
                     wDat += Converter.FillEmpty(ceiledThickness, 10, 3);
                 });
-                wDat += FillMultipleZeros(13 - numMaterials, 10,3);
+                wDat += FillMultipleZeros(13 - numMaterials, 10, 3);
                 wDat += " \r\n";
 
                 //5行目　熱伝導率
                 construction.materials.ForEach(material =>
                 {
-                    wDat += Converter.FillEmpty(material.conductivity, 10,3);
+                    wDat += Converter.FillEmpty(material.conductivity, 10, 3);
                 });
                 wDat += FillMultipleZeros(13 - numMaterials, 10, 3);
                 wDat += " \r\n";
@@ -477,10 +477,10 @@ namespace THERBgh
                 if (window)
                 {
                     wDat += CavityLayers(numMaterials, cavityLayer, 0.0, 0.0) + "\r\n" //solar absorptance
-                    + CavityLayers(numMaterials, cavityLayer, 0.0,0.0) + "\r\n" //solar transmittance
-                    + CavityLayers(numMaterials, cavityLayer, 0.84,0.0) + "\r\n" //interior emissivity of glazing & low-e & shade, etc.
+                    + CavityLayers(numMaterials, cavityLayer, 0.0, 0.0) + "\r\n" //solar transmittance
+                    + CavityLayers(numMaterials, cavityLayer, 0.84, 0.0) + "\r\n" //interior emissivity of glazing & low-e & shade, etc.
                     + CavityLayers(numMaterials, cavityLayer, 0.84, 0.0) + "\r\n" //exterior emissivity of glazing & low-e & shade, etc.
-                    + CavityLayers(numMaterials, cavityLayer, 0.0,2.0) + "\r\n" //interior coefficient of cavity convection [W/m2 K]
+                    + CavityLayers(numMaterials, cavityLayer, 0.0, 2.0) + "\r\n" //interior coefficient of cavity convection [W/m2 K]
                     + CavityLayers(numMaterials, cavityLayer, 0.0, 2.0) + "\r\n" //exterior coefficient of cavity convection [W/m2 K]
                     + CavityLayers(numMaterials, cavityLayer, 0, 0) + "\r\n" //velocity of air flow through cavity [m/s]
                     + CavityLayers(numMaterials, cavityLayer, 0, 0) + "\r\n"; //inflow from outdoor or room (= 0 or 1)
@@ -492,7 +492,7 @@ namespace THERBgh
             return wDat;
         }
 
-        public static string CreateSDat(Schedule schedule,List<Room> rooms)
+        public static string CreateSDat(Schedule schedule, List<Room> rooms)
         {
             List<int> m = schedule.monthly.hvac;
             List<int> w = schedule.weekly.hvac;
@@ -520,7 +520,7 @@ namespace THERBgh
             return sDat;
         }
 
-        public static string CreateTDat(int startMonth,int EndMonth,Vector3d northDirection)
+        public static string CreateTDat(int startMonth, int EndMonth, Vector3d northDirection, Weather weather)
         {
             int calcDays = EndMonth * 30;
             //ベクトルから建物方位角への変換
@@ -529,7 +529,7 @@ namespace THERBgh
             string tDat = "*** THERB 起動用データ *** \r\n"
                 + "------------------ ----------------- （入出力データ）\r\n"
                 + "出  力  データ     -o.dat \r\n"
-                + "気  象  データ     -Fukuoka.dat \r\n"
+                + "気  象  データ     -" + weather.name + ".dat \r\n"
                 + "壁  体  データ     -w.dat \r\n"
                 + "建  物  データ     -b.dat \r\n"
                 + "  室    データ     -r.dat \r\n"
@@ -546,7 +546,7 @@ namespace THERBgh
                 + "------------------ ---.--- （計算地域等の基本データ） \r\n"
                 + "緯度      (°)     -  33.60 \r\n"
                 + "経度      (°)     - 130.22 \r\n"
-                + "建物方位角(°)     -" + Converter.FillEmpty(NorthDegree(northDirection),6,1) + " \r\n"
+                + "建物方位角(°)     -" + Converter.FillEmpty(NorthDegree(northDirection), 6, 1) + " \r\n"
                 + "地表面日射吸収率   -   0.8 \r\n"
                 + "地表面長波放射率   -   0.9 \r\n"
                 + "------------------ -----.- （計算時間間隔） \r\n"
@@ -567,7 +567,7 @@ namespace THERBgh
 
         }
 
-        private static string FillSchedule(List<int> schedule,int eachLength)
+        private static string FillSchedule(List<int> schedule, int eachLength)
         {
             string result = "";
             schedule.ForEach(s =>
@@ -576,7 +576,7 @@ namespace THERBgh
             });
             return result;
         }
-        private static string FillSchedule(List<int> schedule, int eachLength,int digit)
+        private static string FillSchedule(List<int> schedule, int eachLength, int digit)
         {
             string result = "";
             schedule.ForEach(s =>
@@ -585,12 +585,12 @@ namespace THERBgh
             });
             return result;
         }
-        private static string FillMultipleZeros(int repeatNum,int totalLength,int digit)
+        private static string FillMultipleZeros(int repeatNum, int totalLength, int digit)
         {
             string result = "";
             for (int i = 0; i < repeatNum; i++)
             {
-                result += Converter.FillEmpty(0, totalLength,digit);
+                result += Converter.FillEmpty(0, totalLength, digit);
             }
             return result;
         }
@@ -614,15 +614,15 @@ namespace THERBgh
             return windowIdStrs;
         }
 
-        private static string CavityLayers(int numMaterials, int cavityLayer, double glassNumber, double cavityNumber,int digit=3)
+        private static string CavityLayers(int numMaterials, int cavityLayer, double glassNumber, double cavityNumber, int digit = 3)
         {
 
             string windowIdStrs = "";
-            for (int windowIdIndex = 1; windowIdIndex < numMaterials+1; windowIdIndex++)
+            for (int windowIdIndex = 1; windowIdIndex < numMaterials + 1; windowIdIndex++)
             {
                 if (windowIdIndex == cavityLayer)
                 {
-                    windowIdStrs += Converter.FillEmpty(cavityNumber,10,digit);
+                    windowIdStrs += Converter.FillEmpty(cavityNumber, 10, digit);
                 }
                 else
                 {
@@ -657,18 +657,20 @@ namespace THERBgh
         public int startMonth;
         public int endMonth;
         public double ventilationRate;
+        public Weather weather;
 
         public Setting()
         {
 
         }
 
-        public Setting(Vector3d northDirection,int startMonth,int endMonth,double ventilationRate)
+        public Setting(Vector3d northDirection, int startMonth, int endMonth, double ventilationRate, Weather weather)
         {
             this.northDirection = northDirection;
             this.startMonth = startMonth;
             this.endMonth = endMonth;
             this.ventilationRate = ventilationRate;
+            this.weather = weather;
         }
     }
     public class ResEnvelope
@@ -719,10 +721,10 @@ namespace THERBgh
             floorCeilingId = Int32.Parse(payload.floorCeiling.id);
             groundFloorId = Int32.Parse(payload.groundFloor.id);
             roofId = Int32.Parse(payload.roof.id);
-            windowId = Int32.Parse(payload.window.id)+count;
+            windowId = Int32.Parse(payload.window.id) + count;
         }
 
-        public Envelope(int exWallId,int inWallId,int floorCeilId, int exRoofId, int groundFlrId, int windowCntId)
+        public Envelope(int exWallId, int inWallId, int floorCeilId, int exRoofId, int groundFlrId, int windowCntId)
         {
             exteriorWallId = exWallId;
             interiorWallId = inWallId;
@@ -746,6 +748,29 @@ namespace THERBgh
                 preview += " interiorWallId :" + interiorWallId.ToString() + Environment.NewLine;
                 preview += " floorCeilingId :" + floorCeilingId.ToString() + Environment.NewLine;
                 preview += " windowId :" + windowId.ToString() + Environment.NewLine;
+            }
+            catch { }
+            return preview;
+        }
+    }
+
+    public class Weather
+    {
+        public string name;
+        public Weather()
+        {
+            this.name = "";
+        }
+        public Weather(string name)
+        {
+            this.name = name;
+        }
+        public override string ToString()
+        {
+            string preview = base.ToString();
+            try
+            {
+                preview += " Name :" + name + Environment.NewLine;
             }
             catch { }
             return preview;

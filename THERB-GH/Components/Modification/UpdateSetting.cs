@@ -41,10 +41,12 @@ namespace THERBgh
             pManager.AddIntegerParameter("start_month", "start_month", "start month for simulation", GH_ParamAccess.item);
             pManager.AddIntegerParameter("end_month", "end_month", "end month for simulation", GH_ParamAccess.item);
             pManager.AddNumberParameter("ventilation rate[ACH]", "ventilation rate[ACH]", "ventilation rate[ACH]", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Weather", "Weather", "weather", GH_ParamAccess.item);
             pManager[0].Optional = true;
             pManager[1].Optional = true;
             pManager[2].Optional = true;
             pManager[3].Optional = true;
+            pManager[4].Optional = true;
         }
 
         /// <summary>
@@ -67,16 +69,18 @@ namespace THERBgh
             int endMonth = 12;
             double ventilationRate = 0.5;
             Vector3d northDirection = new Vector3d(0,0,0);
+            var weather = new Weather();
 
             DA.GetData("north_direction", ref northDirection);
             DA.GetData("start_month", ref startMonth);
             DA.GetData("end_month", ref endMonth);
             DA.GetData("ventilation rate[ACH]", ref ventilationRate);
+            DA.GetData("Weather", ref weather);
 
-            Setting setting = new Setting(northDirection, startMonth, endMonth, ventilationRate);
+            Setting setting = new Setting(northDirection, startMonth, endMonth, ventilationRate, weather);
 
-            DA.SetData("Setting",setting);
-            DA.SetData("t_dat", CreateDatData.CreateTDat(startMonth, endMonth, northDirection));
+            DA.SetData("Setting", setting);
+            DA.SetData("t_dat", CreateDatData.CreateTDat(startMonth, endMonth, northDirection, weather));
         }
 
         /// <summary>
