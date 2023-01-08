@@ -119,7 +119,7 @@ namespace THERBgh
             List<Point3d> centerPtList = new List<Point3d>();
             List<string> directionList = new List<string>();
             List<int> constructionIdList = new List<int>();
-            List<int> structureIdList = new List<int>();
+            List<string> structureIdList = new List<string>();
             List<int> adjacencyRoomIdList = new List<int>();
             List<List<Window>> windowList = new List<List<Window>>();
             List<int> windowIdList = new List<int>();

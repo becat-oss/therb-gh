@@ -40,6 +40,7 @@ namespace THERBgh
         const int DEFALT_FONT_SIZE = 12;
 
         public Envelope envelope;
+        public List<Construction> constructions;
         private Therb _therb;
         private int _fontsize;
 
@@ -52,6 +53,7 @@ namespace THERBgh
             pManager.AddSurfaceParameter("_windows", "windows", "list of windows", GH_ParamAccess.list);
             pManager.AddSurfaceParameter("_overhangs", "overhangs", "list of overhangs", GH_ParamAccess.list);
             pManager.AddGenericParameter("_Envelope", "Envelope", "Envelope class", GH_ParamAccess.item); //Envelopeのinputをoptionalにしたい
+            pManager.AddGenericParameter("_Constructions", "Constructions", "Construction class", GH_ParamAccess.list); //Envelopeのinputをoptionalにしたい
             pManager.AddNumberParameter("tol", "tolerance", "tolerance", GH_ParamAccess.item, 0.1);
             pManager[1].Optional = true;
             pManager[2].Optional = true;
@@ -77,6 +79,7 @@ namespace THERBgh
             List<Box> boxes = new List<Box>();
             List<Surface> windows = new List<Surface>();
             List<Surface> overhangs = new List<Surface>();
+            constructions = new List<Construction>();
             envelope = new Envelope();
 
             List<Room> roomList = new List<Room>();
@@ -96,7 +99,8 @@ namespace THERBgh
             //Envelopeのinputがなかったら以下の情報でEnvelopeを初期化
             //Envelope defaultEnv = new Envelope(1, 2, 3, 4, 5, 6);
             DA.GetData(3, ref envelope);
-            DA.GetData(4, ref tol);
+            DA.GetDataList(4, constructions);
+            DA.GetData(5, ref tol);
 
             var exBoxes = ExBox.SplitGeometry(boxes, tol);
 
@@ -220,7 +224,7 @@ namespace THERBgh
             List<Window> windowList = new List<Window>();
             foreach(Surface windowGeo in windows)
             {
-                Window window = new Window(windowGeo, envelope);
+                Window window = new Window(windowGeo, envelope,constructions);
                 foreach (Face exFace in externalFaces)
                 {
                     var state = StateSurfPoint.Unknown;
@@ -353,7 +357,7 @@ namespace THERBgh
                 
                 testFace.setElementType();
                 testFace.setPartId();
-                testFace.setConstructionId(envelope);
+                testFace.setConstructionId(envelope,constructions);
                 faceListBC.Add(testFace);
             }
             return faceListBC;
@@ -490,26 +494,26 @@ namespace THERBgh
             return base.Read(reader);
         }
 
-        public override void DrawViewportWires(IGH_PreviewArgs args)
-        {
-            base.DrawViewportWires(args);
-            try
-            {
-                foreach (var room in _therb.rooms)
-                {
+        //public override void DrawViewportWires(IGH_PreviewArgs args)
+        //{
+        //    base.DrawViewportWires(args);
+        //    try
+        //    {
+        //        foreach (var room in therb.rooms)
+        //        {
                     //var text3d = new Text3d("RoomId:" + room.id, new Plane(room.centroid, new Vector3d(0, 0, 1)), _fontsize);
                     //args.Display.Draw3dText(text3d, Color.Black);
                     //args.Display.Draw2dText("RoomId:" + room.id, Color.Black, room.centroid, false);
-                    args.Display.Draw2dText(
-                        "RoomId:" + room.id, 
-                        Color.Black,
-                        room.centroid, 
-                        true, 
-                        _fontsize);
-                }
-            }
-            catch { }
-        }
+        //            args.Display.Draw2dText(
+        //                "RoomId:" + room.id, 
+        //                Color.Black,
+        //                room.centroid, 
+        //                true, 
+        //                _fontsize);
+        //        }
+        //    }
+        //    catch { }
+        //}
     }
 
     public class ExBox

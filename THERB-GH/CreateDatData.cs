@@ -149,7 +149,7 @@ namespace THERBgh
             //窓の情報を抽出
             windowList.ForEach(window =>
             {
-                bDat += Converter.FillEmpty("Window " + window.id.ToString(), 13)
+                bDat += Converter.FillEmpty("Window " + window.partId.ToString(), 13)
                 + Converter.FillEmpty(window.minPt.X, 8, 3)
                 + Converter.FillEmpty(window.minPt.Y, 8, 3)
                 + Converter.FillEmpty(window.minPt.Z, 8, 3)
@@ -376,9 +376,9 @@ namespace THERBgh
                 int cavityLayer = 0;
                 bool window = false;
 
-                wDat += Converter.FillEmpty(construction.id, 3)
-                + Converter.FillEmpty(elementIdDict[construction.categories], 2)
-                + opaqueTransparentDict[construction.categories]
+                wDat += Converter.FillEmpty(construction.therbId, 3)
+                + Converter.FillEmpty(elementIdDict[construction.category], 2)
+                + opaqueTransparentDict[construction.category]
                 + Converter.FillEmpty(numMaterials, 3) + " \r\n";
 
                 //2行目入力 classification
@@ -419,12 +419,12 @@ namespace THERBgh
                 wDat += " \r\n";
 
                 //4行目入力 厚み
-                construction.thickness.ForEach(thickness =>
+                construction.materials.ForEach(material =>
                 {
-                    double ceiledThickness = thickness / 1000;
+                    double ceiledThickness = material.thickness / 1000;
 
                     //厚みが1mm以下のマテリアルはTHERBが読み込めない
-                    if (thickness <= 1)
+                    if (material.thickness <= 1)
                     {
                         ceiledThickness = 0.001;
                     }
@@ -680,24 +680,24 @@ namespace THERBgh
     {
         public string name;
         public string id;
-        public Opaque exteriorWall;
-        public Opaque interiorWall;
-        public Opaque floorCeiling;
-        public Opaque groundFloor;
-        public Opaque roof;
-        public Translucent window;
+        public Construction exteriorWall;
+        public Construction interiorWall;
+        public Construction floorCeiling;
+        public Construction groundFloor;
+        public Construction roof;
+        public Construction window;
     }
 
     public class Envelope
     {
         public string name;
         public string id;
-        public Opaque exteriorWall;
-        public Opaque interiorWall;
-        public Opaque floorCeiling;
-        public Opaque groundFloor;
-        public Opaque roof;
-        public Translucent window;
+        public Construction exteriorWall;
+        public Construction interiorWall;
+        public Construction floorCeiling;
+        public Construction groundFloor;
+        public Construction roof;
+        public Construction window;
         public int exteriorWallId;
         public int interiorWallId;
         public int floorCeilingId;
@@ -710,16 +710,17 @@ namespace THERBgh
 
         }
 
-        public Envelope(EnvelopePayload payload, int count)
+        public Envelope(EnvelopePayload payload)
         {
+            //EnvelopePayloadの中身が変わる
             name = payload.name;
             id = payload.id;
-            exteriorWallId = Int32.Parse(payload.exteriorWall.id);
-            interiorWallId = Int32.Parse(payload.interiorWall.id);
-            floorCeilingId = Int32.Parse(payload.floorCeiling.id);
-            groundFloorId = Int32.Parse(payload.groundFloor.id);
-            roofId = Int32.Parse(payload.roof.id);
-            windowId = Int32.Parse(payload.window.id)+count;
+            exteriorWall = payload.exteriorWall;
+            interiorWall = payload.interiorWall;
+            floorCeiling = payload.floorCeiling;
+            groundFloor = payload.groundFloor;
+            roof = payload.roof;
+            window = payload.window;
         }
 
         public Envelope(int exWallId,int inWallId,int floorCeilId, int exRoofId, int groundFlrId, int windowCntId)
@@ -799,81 +800,44 @@ namespace THERBgh
         public List<Construction> data;
     }
 
-    public class ResTranslucent
-    {
-        public List<TranslucentPayload> data;
-    }
-
-    public class TranslucentPayload
+    public class ConstructionPayload
     {
         public string id;
         [JsonProperty(PropertyName = "category")]
-        public ElementType categories;
+        public ElementType category;
         public List<Material> materials;
-        public List<Double> thickness;
-    }
-
-    public class Translucent
-    {
-        public string id;
-        [JsonProperty(PropertyName = "category")]
-        public ElementType categories;
-        public List<Material> materials;
-        public List<Double> thickness;
-
-        public Translucent() { }
-
-
-        public Translucent(TranslucentPayload translucent, int count)
-        {
-            int idNum = Int32.Parse(translucent.id) + count;
-            id = idNum.ToString();
-            categories = ElementType.window;
-            materials = translucent.materials;
-            thickness = translucent.thickness;
-        }
-    }
-
-    public class ResOpaque
-    {
-        public List<Opaque> data;
-    }
-
-    public class Opaque
-    {
-        public string id;
-        [JsonProperty(PropertyName = "category")]
-        public ElementType categories;
-        public List<Material> materials;
-        public List<Double> thickness;
     }
 
     public class Construction
     {
         public string id;
+        public string therbId;
         [JsonProperty(PropertyName = "category")]
-        public ElementType categories;
+        public ElementType category;
         public List<Material> materials;
-        public List<Double> thickness;
 
         public Construction()
         {
 
         }
 
-        public Construction (Opaque opaque){
+
+        public Construction(ConstructionPayload opaque, int opaqueCount)
+        {
+            int idNum = opaqueCount;
+            therbId = idNum.ToString();
             id = opaque.id;
-            categories = opaque.categories;
+            category = opaque.category;
             materials = opaque.materials;
-            thickness = opaque.thickness;
         }
 
-        public Construction (Translucent traslucent)
+        public Construction(ConstructionPayload translucent, int opaqueCount, int translucentId)
         {
-            id = traslucent.id;
-            categories = ElementType.window;
-            materials = traslucent.materials;
-            thickness = traslucent.thickness;
+            int idNum = translucentId + opaqueCount;
+            therbId = idNum.ToString();
+            id = translucent.id;
+            category = ElementType.window;
+            materials = translucent.materials;
         }
 
         public override string ToString()
@@ -883,9 +847,8 @@ namespace THERBgh
             {
                 preview += Environment.NewLine;
                 preview += " Id         :" + id + Environment.NewLine;
-                preview += " Category :" + categories + Environment.NewLine;
+                preview += " Category :" + category + Environment.NewLine;
                 preview += " Materials  :" + string.Join(", ", Material.GetNames(materials)) + Environment.NewLine;
-                preview += " Thickness  :" + string.Join(", ", thickness);
             }
             catch { }
             return preview;
@@ -893,7 +856,7 @@ namespace THERBgh
 
         public bool filterByCategory(ElementType category)
         {
-            if (this.categories == category)
+            if (this.category == category)
             {
                 return true;
             }
@@ -904,6 +867,56 @@ namespace THERBgh
         }
     }
 
+    public class ResTranslucent
+    {
+        public List<ConstructionPayload> data;
+    }
+
+
+    public class Translucent
+    {
+        public string id;
+        public string therbId;
+        [JsonProperty(PropertyName = "category")]
+        public ElementType categories;
+        public List<Material> materials;
+
+
+        public Translucent(ConstructionPayload translucent, int opaqueCount,int translucentId)
+        {
+            int idNum = translucentId + opaqueCount;
+            therbId = idNum.ToString();
+            id = translucent.id;
+            categories = ElementType.window;
+            materials = translucent.materials;
+        }
+    }
+
+    public class ResOpaque
+    {
+        public List<ConstructionPayload> data;
+    }
+
+    public class Opaque
+    {
+        public string id;
+        public string therbId;
+        [JsonProperty(PropertyName = "category")]
+        public ElementType categories;
+        public List<Material> materials;
+
+        public Opaque(ConstructionPayload opaque, int opaqueCount)
+        {
+            int idNum = opaqueCount;
+            therbId = idNum.ToString();
+            id = opaque.id;
+            categories = opaque.category;
+            materials = opaque.materials;
+        }
+    }
+
+
+
     public class Material
     {
         public string id;
@@ -911,6 +924,7 @@ namespace THERBgh
         public double conductivity;
         public double density;
         public double specificHeat;
+        public double thickness;
         public int classification;
 
         public static List<string> GetNames(List<Material> materials)

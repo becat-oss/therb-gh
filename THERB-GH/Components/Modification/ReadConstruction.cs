@@ -19,8 +19,8 @@ namespace THERBgh
 {
     public class ReadConstruction : GH_Component
     {
-        const string OPAQUE_URL = "https://stingray-app-vgak2.ondigitalocean.app/constructions";
-        const string TRANSLUCENT_URL = "https://stingray-app-vgak2.ondigitalocean.app/windows";
+        const string OPAQUE_URL = "https://n4lws74mn3.execute-api.ap-northeast-1.amazonaws.com/dev/?category=opaque";
+        const string TRANSLUCENT_URL = "https://n4lws74mn3.execute-api.ap-northeast-1.amazonaws.com/dev/?category=window";
 
         //const string OPAQUE_URL = "http://localhost:5000/constructions";
         //const string TRANSLUCENT_URL = "http://localhost:5000/windows";
@@ -53,7 +53,7 @@ namespace THERBgh
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             //TODO: RegisterOutputParamsをdynamicにしたい
-            pManager.AddGenericParameter("Construction", "Construction", "construction list", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Constructions", "Constructions", "construction list", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -73,33 +73,32 @@ namespace THERBgh
             string text = wc.DownloadString(OPAQUE_URL);
             string text2 = wc.DownloadString(TRANSLUCENT_URL);
 
-            //List<Construction> constructions = JsonConvert.DeserializeObject<ResConstruction>(text).data;
-            List<Opaque> opaques = JsonConvert.DeserializeObject<ResOpaque>(text).data;
+            List<ConstructionPayload> opaquePayload = JsonConvert.DeserializeObject<ResOpaque>(text).data;
 
-            List<TranslucentPayload> translucentsPayload = JsonConvert.DeserializeObject<ResTranslucent>(text2).data;
-
-            int opaqueCnt = opaques.Count;
-
-            List<Translucent> translucents = new List<Translucent>();
-
-            foreach(TranslucentPayload t in translucentsPayload)
-            {
-                translucents.Add(new Translucent(t, opaqueCnt));
-            }
-
+            //List<Opaque> opaques = new List<Opaque>();
             List<Construction> constructions = new List<Construction>();
 
-            foreach(Opaque opaque in opaques)
+            int opaqueCount = 0;
+            foreach (ConstructionPayload o in opaquePayload)
             {
-                constructions.Add(new Construction(opaque));
+                opaqueCount += 1;
+                constructions.Add(new Construction(o, opaqueCount));
+                
             }
 
-            foreach(Translucent t in translucents)
+            List<ConstructionPayload> translucentsPayload = JsonConvert.DeserializeObject<ResTranslucent>(text2).data;
+
+            int opaqueCnt = constructions.Count;
+
+
+            int translucentCount = 1;
+            foreach(ConstructionPayload t in translucentsPayload)
             {
-                constructions.Add(new Construction(t));
+                constructions.Add(new Construction(t, opaqueCnt,translucentCount));
+                translucentCount += 1;
             }
 
-            DA.SetDataList("Construction", constructions);
+            DA.SetDataList("Constructions", constructions);
         }
 
         /// <summary>

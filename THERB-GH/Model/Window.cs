@@ -25,13 +25,13 @@ namespace Model
             _totalWindows = 0;
         }
 
-        public Window(Surface geometry,Envelope envelope) : base(geometry)
+        public Window(Surface geometry,Envelope envelope,List<Construction> constructions) : base(geometry)
         {
             guid = Guid.NewGuid();
             _totalWindows += 1;
             id = _totalWindows;
             this.constructionId = 6;
-            this.structureId = envelope.windowId;
+            this.structureId = constructions.Find(opaque => opaque.id == envelope.roof.id).therbId; ;
         }
 
         public void addParent(Face parent)

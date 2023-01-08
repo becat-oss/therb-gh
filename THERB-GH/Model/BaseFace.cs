@@ -37,7 +37,7 @@ namespace Model
         public BrepVertexList vertices;
         public double area;
         public int constructionId; //とりあえず外壁1,内壁2,床(室内）5,屋根4,床（地面）5, 窓6　THERBのelement Idに相当/鈴木君からもらったデータにとりあえずそろえる
-        public int structureId; //w.datファイルのidと対応
+        public string structureId; //w.datファイルのidと対応
         public Overhang overhang;
         public int overhangId; //overhangは一つしか指定できない
 
