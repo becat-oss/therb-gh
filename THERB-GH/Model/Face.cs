@@ -307,44 +307,46 @@ namespace Model
             }
         }
 
-        public void setConstructionId(Envelope envelope)
+        public void setConstructionId(Envelope envelope,List<Construction> constructions)
         {
             //Print("{0}", elementType);
             switch (elementType)
             {
+                //construction側でtherb用の通しidは管理している
+               
                 case ElementType.exteriorWall:
                     constructionId = 1;
-                    structureId = envelope.exteriorWallId;
+                    structureId = constructions.Find(opaque => opaque.id == envelope.exteriorWall.id).therbId;
                     break;
                 case ElementType.interiorWall:
                     constructionId = 2;
-                    structureId = envelope.interiorWallId;
+                    structureId = constructions.Find(opaque => opaque.id == envelope.interiorWall.id).therbId;
                     break;
                 case ElementType.interiorRoof:
                     constructionId = 3;
-                    structureId = envelope.floorCeilingId;
+                    structureId = constructions.Find(opaque=>opaque.id == envelope.floorCeiling.id).therbId;
                     break;
                 case ElementType.interiorFloor:
                     constructionId = 3;
-                    structureId = envelope.floorCeilingId;
+                    structureId = constructions.Find(opaque => opaque.id == envelope.floorCeiling.id).therbId;
                     break;
                 case ElementType.exteriorRoof:
                     constructionId = 4;
-                    structureId = envelope.roofId;
+                    structureId = constructions.Find(opaque => opaque.id == envelope.roof.id).therbId;
                     break;
                 case ElementType.groundRoof:
                     constructionId = 5;
-                    structureId = envelope.groundFloorId;
+                    structureId = constructions.Find(opaque => opaque.id == envelope.groundFloor.id).therbId;
                     break;
                 case ElementType.groundFloor:
                     constructionId = 5;
-                    structureId = envelope.groundFloorId;
+                    structureId = constructions.Find(opaque => opaque.id == envelope.groundFloor.id).therbId;
                     break;
             }
         }
         public void OverrideConstruction(Construction construction)
         {
-            this.structureId = Int32.Parse(construction.id);
+            this.structureId = construction.therbId;
         }
 
         public override string ToString()

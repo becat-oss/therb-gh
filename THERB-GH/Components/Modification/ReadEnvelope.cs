@@ -19,11 +19,8 @@ namespace THERBgh
 {
     public class ReadEnvelope : GH_Component
     {
-        const string ENVELOPE_URL = "https://stingray-app-vgak2.ondigitalocean.app/envelopes";
-        const string OPAQUE_URL = "https://stingray-app-vgak2.ondigitalocean.app/constructions";
-
-        //const string ENVELOPE_URL = "http://localhost:5000/envelopes";
-        //const string OPAQUE_URL = "http://localhost:5000/constructions";
+        const string ENVELOPE_URL = "https://inxoptpsxe.execute-api.ap-northeast-1.amazonaws.com/dev/";
+        const string OPAQUE_URL = "https://n4lws74mn3.execute-api.ap-northeast-1.amazonaws.com/dev/";
 
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
@@ -70,20 +67,20 @@ namespace THERBgh
             var wc = new WebClient();
 
             string text = wc.DownloadString(ENVELOPE_URL);
-            string text2 = wc.DownloadString(OPAQUE_URL);
+            //string text2 = wc.DownloadString(OPAQUE_URL);
 
             List<EnvelopePayload> envelopePayload = JsonConvert.DeserializeObject<ResEnvelope>(text).data;
 
-            List<Opaque> opaques = JsonConvert.DeserializeObject<ResOpaque>(text2).data;
+            //List<ConstructionPayload> opaques = JsonConvert.DeserializeObject<ResOpaque>(text2).data;
 
-            int opaqueCnt = opaques.Count;
+            //int opaqueCnt = opaques.Count;
 
             //windowのidを変える必要あり
             List<Envelope> envelopes = new List<Envelope>();
 
             foreach(EnvelopePayload e in envelopePayload)
             {
-                envelopes.Add(new Envelope(e, opaqueCnt));
+                envelopes.Add(new Envelope(e));
             }
 
             DA.SetDataList("Envelopes", envelopes);
