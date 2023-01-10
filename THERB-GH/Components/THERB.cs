@@ -181,7 +181,7 @@ namespace THERBgh
                 }
             }
 
-            _therb = new Therb(roomList, faceListWindow, windowList, overhangList);
+            _therb = new Therb(roomList, faceListWindow, windowList, overhangList, envelope);
 
             DA.SetData("Therb", _therb);
         }

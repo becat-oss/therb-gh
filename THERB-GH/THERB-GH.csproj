@@ -69,6 +69,7 @@
     <Compile Include="Components\Modification\ReadFaceProperties.cs" />
     <Compile Include="Components\RunSimulation.cs" />
     <Compile Include="Components\Decompose.cs" />
+    <Compile Include="Components\Modification\ReadWeather.cs" />
     <Compile Include="ThrebUtilsTest.cs" />
     <Compile Include="Components\Modification\ReadConstruction.cs" />
     <Compile Include="Components\Modification\UpdateConstruction.cs" />

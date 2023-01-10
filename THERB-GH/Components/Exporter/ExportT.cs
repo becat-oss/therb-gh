@@ -40,7 +40,7 @@ namespace THERBgh
             pManager.AddVectorParameter("north_direction", "north_direction", "north direction", GH_ParamAccess.item);
             pManager.AddIntegerParameter("start_month", "start_month", "start month for simulation", GH_ParamAccess.item);
             pManager.AddIntegerParameter("end_month", "end_month", "end month for simulation", GH_ParamAccess.item);
-            
+            pManager.AddNumberParameter("Weather", "Weather", "weather", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -61,12 +61,14 @@ namespace THERBgh
             int startMonth = 1;
             int endMonth = 12;
             Vector3d northDirection = new Vector3d(0,0,0);
+            var weather = new Weather();
 
             DA.GetData("north_direction", ref northDirection);
             DA.GetData("start_month", ref startMonth);
             DA.GetData("end_month", ref endMonth);
+            DA.GetData("Weather", ref weather);
 
-            DA.SetData("t_dat", CreateDatData.CreateTDat(startMonth,endMonth,northDirection));
+            DA.SetData("t_dat", CreateDatData.CreateTDat(startMonth,endMonth,northDirection, weather));
         }
 
         /// <summary>

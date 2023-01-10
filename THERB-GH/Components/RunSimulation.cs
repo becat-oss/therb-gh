@@ -149,7 +149,7 @@ namespace THERBgh
             var rDat = CreateDatData.CreateRDat(therb);
 
             //Vector3d northDirection = new Vector3d(0, 0, 0);
-            var tDat = CreateDatData.CreateTDat(setting.startMonth,setting.endMonth,setting.northDirection);
+            var tDat = CreateDatData.CreateTDat(setting.startMonth,setting.endMonth,setting.northDirection, setting.weather);
             //TODO: settingが入力されていなかったら、デフォルト値を入れて計算
             var wDat = CreateDatData.CreateWDat(constructionList);
             var aDat = CreateDatData.CreateADat(therb,setting.ventilationRate);
@@ -401,6 +401,10 @@ namespace THERBgh
                 DA.SetData("o_dat_file_path", path);
 
             }
+            MessageBox.Show("以下の計算条件でシミュレーションを行いました。" + Environment.NewLine +
+                $"気象データ：{setting.weather.name}" + Environment.NewLine +
+                $"Envelope : {therb.envelope.name}" + Environment.NewLine +
+                $"Schedule : {schedule.name}");
         }
 
 
