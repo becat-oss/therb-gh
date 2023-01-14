@@ -149,7 +149,7 @@ namespace THERBgh
             //窓の情報を抽出
             windowList.ForEach(window =>
             {
-                bDat += Converter.FillEmpty("Window " + window.partId.ToString(), 13)
+                bDat += Converter.FillEmpty("Window " + window.id.ToString(), 13)
                 + Converter.FillEmpty(window.minPt.X, 8, 3)
                 + Converter.FillEmpty(window.minPt.Y, 8, 3)
                 + Converter.FillEmpty(window.minPt.Z, 8, 3)

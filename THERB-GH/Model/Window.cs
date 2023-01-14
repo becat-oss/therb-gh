@@ -31,7 +31,7 @@ namespace Model
             _totalWindows += 1;
             id = _totalWindows;
             this.constructionId = 6;
-            this.structureId = constructions.Find(opaque => opaque.id == envelope.roof.id).therbId; ;
+            this.structureId = constructions.Find(opaque => opaque.id == envelope.window.id).therbId; 
         }
 
         public void addParent(Face parent)
