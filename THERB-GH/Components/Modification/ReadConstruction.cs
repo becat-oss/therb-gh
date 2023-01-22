@@ -19,8 +19,8 @@ namespace THERBgh
 {
     public class ReadConstruction : GH_Component
     {
-        const string OPAQUE_URL = "https://0ka93qfvi7.execute-api.ap-northeast-1.amazonaws.com/dev/?category=opaque";
-        const string TRANSLUCENT_URL = "https://0ka93qfvi7.execute-api.ap-northeast-1.amazonaws.com/dev/?category=window";
+        const string OPAQUE_URL = "https://dvoum5nvl7.execute-api.ap-northeast-1.amazonaws.com/dev/?category=opaque";
+        const string TRANSLUCENT_URL = "https://dvoum5nvl7.execute-api.ap-northeast-1.amazonaws.com/dev/?category=window";
 
         //const string OPAQUE_URL = "http://localhost:5000/constructions";
         //const string TRANSLUCENT_URL = "http://localhost:5000/windows";

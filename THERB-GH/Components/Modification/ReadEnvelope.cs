@@ -19,7 +19,7 @@ namespace THERBgh
 {
     public class ReadEnvelope : GH_Component
     {
-        const string ENVELOPE_URL = "https://z3ekk9rish.execute-api.ap-northeast-1.amazonaws.com/dev/";
+        const string ENVELOPE_URL = "https://hz0ucup656.execute-api.ap-northeast-1.amazonaws.com/dev/";
         //const string OPAQUE_URL = "https://n4lws74mn3.execute-api.ap-northeast-1.amazonaws.com/dev/";
 
         /// <summary>
